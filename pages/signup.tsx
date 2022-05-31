@@ -16,13 +16,18 @@ export default function Home() {
 
         </div>
 
-        <div className={styles.content}>
-          <h1>Login</h1>
-          <form className={styles.form}>
+        <div className={styles.contentSignup}>
+        <h1>Sign Up</h1>
+        <form className={styles.formSignup}>
+            <input type="text" placeholder="Full Name"/>
+            <input type="email" placeholder="Email"/>
+            <input type="number" placeholder="Phone Number"/>
+            <input type="date" placeholder="Date of Birth"/>
             <input type="text" placeholder="username"/>
             <input type="password" placeholder="password"/>
-            <button type="submit"> Login</button>
-            <p>New User? <a href="/signup">Sign Up</a></p>
+            <input type="password" placeholder="confirm password"/>
+            <button type="submit"> Sign Up</button>
+            <p>Existing User? <a href="/">Login</a></p>
           </form>
         </div>
       </main>
