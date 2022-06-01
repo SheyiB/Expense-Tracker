@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Login.module.css'
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -21,8 +22,10 @@ export default function Home() {
           <form className={styles.form}>
             <input type="text" placeholder="username"/>
             <input type="password" placeholder="password"/>
-            <button type="submit"> Login</button>
-            <p>New User? <a href="/signup">Sign Up</a></p>
+
+            <Link href="/dashboard"><button type="submit">Login</button></Link>
+            Read{' '}
+            <p>New User?<Link href="/signup"><a>Sign Up</a></Link></p>
           </form>
         </div>
       </main>
