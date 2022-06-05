@@ -8,7 +8,7 @@ const UserBasic = (props)=> {
             <h3>Monthly Spend: {props.monthlySpend}</h3>
         </div>
 
-        <div>
+        {/* <div>
             <Image
             unoptimized
             src={props.image}
@@ -16,7 +16,7 @@ const UserBasic = (props)=> {
             width= "200px"
             height= "300px"
             />
-        </div>
+        </div> */}
 
         <div>
             <h2>Cash at Hand {props.atHand}</h2>

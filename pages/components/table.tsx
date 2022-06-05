@@ -7,7 +7,10 @@ const Table = (props)=> {
         <thead>
         <th> S/N </th> <th>Item</th><th>Category</th><th>Amount</th><th>Date</th>
         </thead>
-        {props.spendings.map(data => <tr>{data.map(item => <td>{item}</td>)}</tr>)}
+        <tbody>
+        {/* {props.spendings.map(data => <tr key={data.id}>{data.map(item => <td key={item.id}>{item}</td>)}</tr>)} */}
+        </tbody>
+
         </table>
         </>
     )
