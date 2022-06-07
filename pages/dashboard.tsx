@@ -29,7 +29,7 @@ export default function dashboard() {
 
     const snewData = [8, 'Curved Monitor', 'Tech', 500, "1-07-2022"]
 
-    const data = {
+    const graphdata = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
             {
@@ -37,6 +37,8 @@ export default function dashboard() {
             },
         ],
     };
+
+
 
     function upateTable(){
         setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
@@ -48,8 +50,8 @@ export default function dashboard() {
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
         <Table spendings={recentSpendings}  onclick={upateTable}/>
         <button onClick={upateTable}> update </button>
-        <Graph data={data}/>
-        <PieChart/>
+        <Graph data={graphdata}/>
+        <PieChart />
         <NewPurchase/>
         </>
     )

@@ -6,6 +6,29 @@ import { Bar, Line, Scatter, Bubble, Doughnut} from "react-chartjs-2"
 
 
 const PieChart = (props) => {
+    const piedata ={
+        backgroundColor: [
+            "rgb(2, 88, 255)",
+            "rgb(249, 151, 0",
+            "rgb(255, 199, 0)",
+            "rgb(32, 214, 152)",
+        ],
+        labels: ["Tech", "Food", "Entertainment", "Clothing"],
+        datasets: [
+            {
+                label: "My first Dataset",
+                data: [300, 50, 100, 300],
+                backgroundColor: [
+                    "rgb(2, 88, 255)",
+                    "rgb(249, 151, 0",
+                    "rgb(255, 199, 0)",
+                    "rgb(32, 214, 152)",
+                ],
+                hoverOffset: 4,
+            },
+        ],
+    };
+
     const options = {
         elements: {
             arc: {
@@ -19,7 +42,7 @@ const PieChart = (props) => {
     return (
         <>
         <h1> The PieChart goes in here</h1>
-        <Doughnut data={props.data} width={50} height={50} options={options} />
+        <Doughnut data={piedata} width={50} height={50} options={options} />
         </>
     )
 }
