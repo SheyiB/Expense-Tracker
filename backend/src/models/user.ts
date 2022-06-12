@@ -18,6 +18,9 @@ const userSchema = new Schema<IUser>({
     phone: {type: Number, required: true},
     cash: {type: Number, required: true, default: 0},
     password: {type: String, required: true}
+},
+{
+    timestamps: true
 })
 
 const User = model<IUser>('User', userSchema);
