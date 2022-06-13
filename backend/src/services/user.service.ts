@@ -1,6 +1,6 @@
 import {User, IUser} from '../models/user';
 
-class UserService {
+export class UserService {
     createUser (body: IUser){
         return new Promise(async(resolve, reject) => {
             try{
@@ -73,6 +73,3 @@ class UserService {
     }
 
 }
-
-
-module.exports = UserService;
