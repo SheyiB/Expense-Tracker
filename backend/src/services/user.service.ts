@@ -17,7 +17,7 @@ class UserService {
     getAllUser (){
         return new Promise(async(resolve, reject) => {
             try{
-                const users = User.find();
+                const users = await User.find();
                 return resolve(users)
             }
             catch(e){
@@ -30,7 +30,7 @@ class UserService {
     getUser (userid: number){
         return new Promise(async(resolve, reject) => {
             try{
-                const user = User.findById(userid);
+                const user = await  User.findById(userid);
                 if (user) return resolve(user);
 
                 reject('User Not Found!')
@@ -41,6 +41,38 @@ class UserService {
             }
         })
     }
+
+    updateUser (userid: number, body: [any]) {
+        return new Promise(async(resolve, reject) => {
+            try{
+                let user = await User.findById(userid);
+                if(!user) return reject('User not found!')
+
+                user = await User.findByIdAndUpdate(userid, body, { new: true, runValidators: true})
+                return resolve(user)
+            } catch (e){
+                e.source = 'Update User Service';
+                return reject(e)
+            }
+        })
+    }
+
+    deleteUser(userid: number) {
+        return new Promise(async(resolve, reject) => {
+            try{
+                let user = await User.findById(userid);
+                if(!user) return reject('User not found!')
+
+                user = await User.findByIdAndDelete(userid)
+                return resolve(user)
+            } catch (e){
+                e.source = 'Update User Service';
+                return reject(e)
+            }
+        })
+    }
+
 }
+
 
 module.exports = UserService;
