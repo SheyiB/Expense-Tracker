@@ -27,7 +27,7 @@ export class UserService {
         })
     }
 
-    getUser (userid: number){
+    getUser (userid: string){
         return new Promise(async(resolve, reject) => {
             try{
                 const user = await  User.findById(userid);
@@ -42,7 +42,7 @@ export class UserService {
         })
     }
 
-    updateUser (userid: number, body: [any]) {
+    updateUser (userid: string, body: [any]) {
         return new Promise(async(resolve, reject) => {
             try{
                 let user = await User.findById(userid);
@@ -57,7 +57,7 @@ export class UserService {
         })
     }
 
-    deleteUser(userid: number) {
+    deleteUser(userid: string) {
         return new Promise(async(resolve, reject) => {
             try{
                 let user = await User.findById(userid);
