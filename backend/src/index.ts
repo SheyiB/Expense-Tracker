@@ -8,9 +8,10 @@ import cors from "cors";
 import helmet from "helmet";
 import { usersRouter } from "./users/users.router" ;
 import { userRouter } from "./routes/user.router";
+import {db} from './db'
 
 dotenv.config();
-
+db();
 /**
  * App Vaiables
  */
