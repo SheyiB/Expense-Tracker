@@ -30,7 +30,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
-app.use("/api/v2/spendingApp/users", userRouter);
+
 
 /**
  * Server Activation
