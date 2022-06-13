@@ -12,7 +12,7 @@ export const createUser = async (req: Request, res: Response) =>{
     }
 }
 
-export const geAllUser = async (req: Request, res: Response) =>{
+export const getAllUsers = async (req: Request, res: Response) =>{
     try{
         const user = await User.getAllUser();
         res.status(200).json(user)

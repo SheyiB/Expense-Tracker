@@ -6,7 +6,8 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { usersRouter} from "./users/users.router" ;
+import { usersRouter } from "./users/users.router" ;
+import { userRouter } from "./routes/user.router";
 
 dotenv.config();
 
@@ -28,7 +29,8 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/api/spendingApp/users", usersRouter);
+app.use("/api/v1/spendingApp/users", usersRouter);
+app.use("/api/v2/spendingApp/users", userRouter);
 
 /**
  * Server Activation
