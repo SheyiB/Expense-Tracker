@@ -8,6 +8,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { usersRouter } from "./users/users.router" ;
 import { userRouter } from "./routes/user.router";
+import { purchaseRouter} from './routes/purchase.router';
 import {db} from './db'
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
+app.use("/api/v2/spendingApp/users", userRouter);
 app.use("/api/v2/spendingApp/users", userRouter);
 
 /**
