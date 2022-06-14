@@ -14,10 +14,10 @@ export class PurchaseService {
         })
     }
 
-    getAllPurchase (){
+    getAllPurchase (query? : any){
         return new Promise(async(resolve, reject) => {
             try{
-                const purchases = await Purchase.find();
+                const purchases = await Purchase.find(query);
                 return resolve(purchases)
             }
             catch(e){
@@ -26,21 +26,6 @@ export class PurchaseService {
             }
         })
     }
-
-    getUserPurchase (userid: string){
-        return new Promise(async(resolve, reject) => {
-            try{
-                const purchases = await Purchase.find({user: userid});
-                return resolve(purchases)
-            }
-            catch(e){
-                e.source = 'Get Purchase Service';
-                return reject(e)
-            }
-        })
-    }
-
-
 
     getPurchase (purchaseid: string){
         return new Promise(async(resolve, reject) => {
