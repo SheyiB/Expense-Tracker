@@ -14,7 +14,7 @@ export const createPurchase = async (req: Request, res: Response) =>{
 
 export const getAllPurchases = async (req: Request, res: Response) =>{
     try{
-        const purchase = await Purchase.getAllPurchase();
+        const purchase = await Purchase.getAllPurchase(req.query);
         res.status(200).json(purchase)
     }  catch(e){
         res.status(500).json(e)
