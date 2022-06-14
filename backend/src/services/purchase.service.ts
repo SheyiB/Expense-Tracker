@@ -1,5 +1,4 @@
 import {Purchase, IPurchase} from '../models/purchase';
-import {Types} from 'mongoose';
 
 export class PurchaseService {
     createPurchase (body: IPurchase){
@@ -28,9 +27,22 @@ export class PurchaseService {
         })
     }
 
+    getUserPurchase (userid: string){
+        return new Promise(async(resolve, reject) => {
+            try{
+                const purchases = await Purchase.find({user: userid});
+                return resolve(purchases)
+            }
+            catch(e){
+                e.source = 'Get Purchase Service';
+                return reject(e)
+            }
+        })
+    }
 
 
-    getPurchase (purchaseid: Types.ObjectId){
+
+    getPurchase (purchaseid: string){
         return new Promise(async(resolve, reject) => {
             try{
                 const purchase = await  Purchase.findById(purchaseid);
@@ -45,7 +57,7 @@ export class PurchaseService {
         })
     }
 
-    updatePurchase (purchaseid: Types.ObjectId, body: [any]) {
+    updatePurchase (purchaseid: string, body: [any]) {
         return new Promise(async(resolve, reject) => {
             try{
                 let purchase = await Purchase.findById(purchaseid);
@@ -60,7 +72,7 @@ export class PurchaseService {
         })
     }
 
-    deletePurchase(purchaseid: Types.ObjectId) {
+    deletePurchase(purchaseid: string) {
         return new Promise(async(resolve, reject) => {
             try{
                 let purchase = await Purchase.findById(purchaseid);
