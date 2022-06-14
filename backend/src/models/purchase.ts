@@ -13,7 +13,7 @@ const purchaseSchema = new Schema<IPurchase>({
     item: {type: String, required: true},
     price: {type: Number, required: true},
     category: {type: String, required: true},
-    date: {type: Date, required: true},
+    date: {type: Date},
     user: {type: Schema.Types.ObjectId, ref: 'User' ,required: true}
 },
 {
