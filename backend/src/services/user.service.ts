@@ -1,4 +1,5 @@
 import {User, IUser} from '../models/user';
+import {Types} from 'mongoose';
 
 export class UserService {
     createUser (body: IUser){
@@ -27,7 +28,7 @@ export class UserService {
         })
     }
 
-    getUser (userid: string){
+    getUser (userid:  Types.ObjectId){
         return new Promise(async(resolve, reject) => {
             try{
                 const user = await  User.findById(userid);
@@ -42,7 +43,7 @@ export class UserService {
         })
     }
 
-    updateUser (userid: string, body: [any]) {
+    updateUser (userid:  Types.ObjectId, body: [any]) {
         return new Promise(async(resolve, reject) => {
             try{
                 let user = await User.findById(userid);
@@ -57,7 +58,7 @@ export class UserService {
         })
     }
 
-    deleteUser(userid: string) {
+    deleteUser(userid:  Types.ObjectId) {
         return new Promise(async(resolve, reject) => {
             try{
                 let user = await User.findById(userid);
