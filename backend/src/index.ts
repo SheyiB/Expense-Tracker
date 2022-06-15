@@ -9,7 +9,8 @@ import helmet from "helmet";
 import { usersRouter } from "./users/users.router" ;
 import { userRouter } from "./routes/user.router";
 import { purchaseRouter } from './routes/purchase.router';
-import {db} from './db'
+import {db} from './db';
+
 
 dotenv.config();
 db();
@@ -29,7 +30,8 @@ const app = express();
  * App Configuration
  */
 app.use(helmet());
-app.use(cors());
+app.use(cors({origin: 'https://localhost:3000', methods: ['GET'], allowedHeaders: ['Content-Type']} ));
+
 app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
 app.use("/api/v2/spendingApp/users", userRouter);

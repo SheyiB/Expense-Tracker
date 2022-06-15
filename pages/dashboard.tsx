@@ -5,18 +5,21 @@ import Table from './components/table'
 import UserBasic from './components/userBasics'
 import Image from 'next/image'
 import { useState} from 'react'
-export default function dashboard() {
+import type {GetStaticProps} from "next";
 
 
-    const [person, setPerson] = useState({
+
+export default function dashboard () {
+
+    const person = {
     username : 'SheyiB',
     monthlySpend: 20000,
     atHand: 1000,
     inBank: 50000,
-    })
+    }
 
 
-    const [recentSpendings, setrecentSpendings] = useState<Array<any>>([
+    const recentSpendings= [
         [1, "Popcorn", "Food", 100, "26-04-2022"],
         [2, "Beans", "Food", 200, "27-05-2022"],
         [3, "Mac Book Pro", "Tech", 1200, "28-05-2022"],
@@ -24,7 +27,7 @@ export default function dashboard() {
         [5, "NF Merch", "Clothing", 100, "31-05-2022"],
         [6, "Data", 'Tech', 20000, "30-05-2021"],
         [7, "Match Game Ticket",'Entertainment', 2000, "1-05-2021"]
-        ])
+        ]
 
 
     const snewData = [8, 'Curved Monitor', 'Tech', 500, "1-07-2022"]
@@ -41,18 +44,31 @@ export default function dashboard() {
 
 
     function upateTable(){
-        setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
+       console.log('Table Updated')
+        // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
     }
 
     return (
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        <Table spendings={recentSpendings}  onclick={upateTable}/>
+        {/* <Table spendings={recentSpendings}  onclick={upateTable}/> */}
         <button onClick={upateTable}> update </button>
-        <Graph data={graphdata}/>
-        <PieChart />
+        {/* <Graph data={graphdata}/> */}
+        {/* <PieChart /> */}
         <NewPurchase/>
         </>
     )
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+
+    const res = await fetch("http://localhost:7000/api/v2/spendingApp/users/62a7b7feda84449b6f16e26a");
+    const { results } = await res.json();
+    console.log(results)
+    return {
+      props: {
+        characters: results,
+      },
+    };
+  };
