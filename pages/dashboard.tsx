@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const res = await fetch("http://localhost:7000/api/v2/spendingApp/users/62a7b7feda84449b6f16e26a");
     const { results } = await res.json();
-    console.log(results)
+    console.log(res)
     return {
       props: {
         characters: results,
