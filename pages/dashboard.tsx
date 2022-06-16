@@ -7,39 +7,22 @@ import Image from 'next/image'
 import { useState} from 'react'
 import type {GetStaticProps} from "next";
 
-const getData = async () => {
-
-    const rest = await fetch("http://localhost:7000/api/v2/spendingApp/users/62a9018b3c07aa27a7b8959e");
-
-    console.log(rest)
-}
-
-getData()
-
-
-
-export default function dashboard () {
+export default function dashboard ({data, buys}) {
 
     const person = {
-    username : 'SheyiB',
+    username : data.firstname,
     monthlySpend: 20000,
     atHand: 1000,
     inBank: 50000,
     }
+    let userSpendings = []
 
-
-    const recentSpendings= [
-        [1, "Popcorn", "Food", 100, "26-04-2022"],
-        [2, "Beans", "Food", 200, "27-05-2022"],
-        [3, "Mac Book Pro", "Tech", 1200, "28-05-2022"],
-        [4, "Samsung S30", "Tech", 1500, "30-05-2022"],
-        [5, "NF Merch", "Clothing", 100, "31-05-2022"],
-        [6, "Data", 'Tech', 20000, "30-05-2021"],
-        [7, "Match Game Ticket",'Entertainment', 2000, "1-05-2021"]
-        ]
-
-
-    const snewData = [8, 'Curved Monitor', 'Tech', 500, "1-07-2022"]
+    for (let i in buys){
+        const currendata = []
+        const pos = Number(i) + 1
+        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].createdAt.slice(0,10)]
+        userSpendings.push(tempdata)
+    }
 
     const graphdata = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -61,7 +44,8 @@ export default function dashboard () {
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        {/* <Table spendings={recentSpendings}  onclick={upateTable}/> */}
+        <Table spendings={userSpendings}  onclick={upateTable}/>
+
         <button onClick={upateTable}> update </button>
         {/* <Graph data={graphdata}/> */}
         {/* <PieChart /> */}
@@ -70,4 +54,15 @@ export default function dashboard () {
     )
 }
 
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/62a9018b3c07aa27a7b8959e`)
+    const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+    const buys = await purch.json()
+    const data = await res.json()
+
+
+    // Pass data to the page via props
+    return { props: { data, buys } }
+  }
 
