@@ -7,6 +7,15 @@ import Image from 'next/image'
 import { useState} from 'react'
 import type {GetStaticProps} from "next";
 
+const getData = async () => {
+
+    const rest = await fetch("http://localhost:7000/api/v2/spendingApp/users/62a9018b3c07aa27a7b8959e");
+
+    console.log(rest)
+}
+
+getData()
+
 
 
 export default function dashboard () {
@@ -61,14 +70,4 @@ export default function dashboard () {
     )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
 
-    const res = await fetch("http://localhost:7000/api/v2/spendingApp/users/62a7b7feda84449b6f16e26a");
-    const { results } = await res.json();
-    console.log(res)
-    return {
-      props: {
-        characters: results,
-      },
-    };
-  };

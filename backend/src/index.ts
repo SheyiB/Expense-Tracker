@@ -30,7 +30,7 @@ const app = express();
  * App Configuration
  */
 app.use(helmet());
-app.use(cors({origin: 'https://localhost:3000', methods: ['GET'], allowedHeaders: ['Content-Type']} ));
+app.use(cors());
 
 app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
