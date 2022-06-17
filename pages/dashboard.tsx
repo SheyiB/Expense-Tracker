@@ -15,6 +15,7 @@ export default function dashboard ({data, buys}) {
     atHand: 1000,
     inBank: 50000,
     }
+
     let userSpendings = []
 
     for (let i in buys){
