@@ -14,6 +14,7 @@ export default function dashboard ({data, buys}) {
     monthlySpend: 20000,
     atHand: 1000,
     inBank: 50000,
+    userid: data.id
     }
 
     let userSpendings = []
@@ -50,7 +51,7 @@ export default function dashboard ({data, buys}) {
         <button onClick={upateTable}> update </button>
         {/* <Graph data={graphdata}/> */}
         {/* <PieChart /> */}
-        <NewPurchase/>
+        <NewPurchase user={person.userid}/>
         </>
     )
 }

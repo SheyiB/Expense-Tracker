@@ -1,20 +1,50 @@
-const NewPurchase = (props) => {
-    const onSub = async() => {
-        const item = document.querySelector('.item').innerHTML,
-              category = document.querySelector('.category').innerHTML,
-              amount = document.querySelector('.amount').innerHTML,
-              date = document.querySelector('.date').innerHTML
+import { useState} from 'react';
 
-        console.log(item, category, amount, date)
+
+
+const NewPurchase = (props) => {
+
+
+    const [data, setdata] = useState({item: '', price: 0, category: '', date: '', user: props.userId})
+
+    function onChangeItem(e){
+        data.item = e.target.value
+        setdata(data)
     }
+
+    function onChangeCategory(e){
+        data.price = e.target.value
+        setdata(data)
+    }
+
+    function onChangeAmount(e){
+        data.category = e.target.value
+        setdata(data)
+    }
+
+    function onChangeDate(e){
+        data.date = e.target.value
+        setdata(data)
+    }
+
+
+    function showValues(){
+        console.log(data)
+    }
+
+
+
+
+
+
     return (
         <>
         <form>
-            <input type="text" className="item" placeholder="Item "/><br/>
-            <input type="text" className="category" placeholder="Category"/><br/>
-            <input type="number" className="amount" placeholder="Amount"/><br/>
-            <input type="date" className="date" placeholder="Date"/><br/>
-            <button onClick={onSub} > Submit </button>
+            <input type="text" className="item"  onChange={onChangeItem} placeholder="Item"/><br/>
+            <input type="text" className="category"  onChange={onChangeCategory} placeholder="Category"/><br/>
+            <input type="number" className="amount"  onChange={onChangeAmount} placeholder="Amount"/><br/>
+            <input type="date" className="date"  onChange={onChangeDate} placeholder="Date"/><br/>
+            <button  type='button' onClick={showValues}> Submit </button>
         </form>
         </>
     )
