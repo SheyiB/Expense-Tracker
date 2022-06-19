@@ -1,4 +1,5 @@
 import { useState} from 'react';
+import axios from 'axios';
 
 
 
@@ -28,14 +29,9 @@ const NewPurchase = (props) => {
     }
 
 
-    async function showValues(data){
-        const newPurchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, {
-            body: data,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST'
-        })
+    function showValues(data){
+        axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, data)
+		  .then(res => console.log(res.data))
         console.log(data)
     }
 
@@ -51,7 +47,7 @@ const NewPurchase = (props) => {
             <input type="text" className="category"  onChange={onChangeCategory} placeholder="Category"/><br/>
             <input type="number" className="amount"  onChange={onChangeAmount} placeholder="Amount"/><br/>
             <input type="date" className="date"  onChange={onChangeDate} placeholder="Date"/><br/>
-            <button  type='button' > Submit </button>
+            <button  type='button' onclick={showValues({data})}> Submit </button>
         </form>
         </>
     )
