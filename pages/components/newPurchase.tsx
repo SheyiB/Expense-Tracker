@@ -37,13 +37,20 @@ export default class NewPurchase extends Component{
         this.setState({ date : e.target.value})
     }
 
+    onSubmit(e){
+        const purchase = {
+            item: this.state.item,
+            price: this.state.price,
+            category: this.state.category,
+            date: this.state.date,
+            user: this.state.user
 
-    onSubmit(){
+        }
 
-        //axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, data)
-		//  .then(res => console.log(res.data))
-		//  .catch(err => console.log(err.message))
-        console.log(this.state)
+        axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, purchase)
+		  .then(res => console.log(res.data))
+		  .catch(err => console.log(err.message))
+        console.log(purchase)
     }
 
 
@@ -53,12 +60,12 @@ export default class NewPurchase extends Component{
 
     return (
         <>
-        <form >
+        <form>
             <input type="text" className="item"  onChange={this.onChangeItem} placeholder="Item"/><br/>
             <input type="text" className="category"  onChange={this.onChangeCategory} placeholder="Category"/><br/>
             <input type="number" className="amount"  onChange={this.onChangeAmount} placeholder="Amount"/><br/>
             <input type="date" className="date"  onChange={this.onChangeDate} placeholder="Date"/><br/>
-            <button  type='button' onClick={this.onSubmit}> Submit </button>
+            <button  type='submit' onClick={this.onSubmit}> Submit </button>
         </form>
         </>
     )
