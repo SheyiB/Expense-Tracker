@@ -24,7 +24,9 @@ export default function dashboard ({data, buys}) {
     for (let i in buys){
         const currendata = []
         const pos = Number(i) + 1
+        const purchaseid = buys[i]._id
         const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].createdAt.slice(0,10)]
+
         userSpendings.push(tempdata)
     }
 
