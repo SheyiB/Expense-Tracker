@@ -1,56 +1,68 @@
-import { useState} from 'react';
+import { useState, Component} from 'react';
 import axios from 'axios';
 
 
 
-const NewPurchase = (props) => {
+export default class NewPurchase extends Component{
+    constructor(props){
+        super(props);
 
+        this.onChangeItem = this.onChangeItem.bind(this);
+        this.onChangeCategory = this.onChangeCategory.bind(this);
+        this.onChangeAmount = this.onChangeAmount.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
-    const [data, setdata] = useState({item: '', price: 0, category: '', date: '', user: props.userId})
-
-    function onChangeItem(e){
-        data.item = e.target.value
-        setdata(data)
+        this.state = {
+            item: '',
+            price: 0,
+            category: '',
+            date: '',
+            user: props.userId
+        }
+    }
+    onChangeItem(e){
+        this.setState({ item : e.target.value})
     }
 
-    function onChangeCategory(e){
-        data.price = e.target.value
-        setdata(data)
+    onChangeCategory(e){
+        this.setState({ category : e.target.value})
     }
 
-    function onChangeAmount(e){
-        data.category = e.target.value
-        setdata(data)
+    onChangeAmount(e){
+        this.setState({ price : e.target.value})
     }
 
-    function onChangeDate(e){
-        data.date = e.target.value
-        setdata(data)
+    onChangeDate(e){
+        this.setState({ date : e.target.value})
     }
 
 
-    function showValues(data){
-        axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, data)
-		  .then(res => console.log(res.data))
-        console.log(data)
+    onSubmit(){
+
+        //axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, data)
+		//  .then(res => console.log(res.data))
+		//  .catch(err => console.log(err.message))
+        console.log(this.state)
     }
 
 
 
 
-
+    render(){
 
     return (
         <>
         <form >
-            <input type="text" className="item"  onChange={onChangeItem} placeholder="Item"/><br/>
-            <input type="text" className="category"  onChange={onChangeCategory} placeholder="Category"/><br/>
-            <input type="number" className="amount"  onChange={onChangeAmount} placeholder="Amount"/><br/>
-            <input type="date" className="date"  onChange={onChangeDate} placeholder="Date"/><br/>
-            <button  type='button' onclick={showValues({data})}> Submit </button>
+            <input type="text" className="item"  onChange={this.onChangeItem} placeholder="Item"/><br/>
+            <input type="text" className="category"  onChange={this.onChangeCategory} placeholder="Category"/><br/>
+            <input type="number" className="amount"  onChange={this.onChangeAmount} placeholder="Amount"/><br/>
+            <input type="date" className="date"  onChange={this.onChangeDate} placeholder="Date"/><br/>
+            <button  type='button' onClick={this.onSubmit}> Submit </button>
         </form>
         </>
     )
+    }
+
 }
 
-export default NewPurchase
