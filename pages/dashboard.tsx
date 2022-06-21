@@ -21,18 +21,6 @@ export default function dashboard ({data, buys}) {
 
 
     let userSpendings = []
-
-    for (let i in buys){
-        const currendata = []
-        const pos = Number(i) + 1
-        const purchaseid = buys[i]._id
-        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
-
-        console.log(buys[i].date.slice(5,7))
-
-        userSpendings.push(tempdata)
-    }
-
     const graphdata = {
         labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         datasets: [
@@ -42,8 +30,24 @@ export default function dashboard ({data, buys}) {
         ],
     };
 
+    for (let i in buys){
+        const currendata = []
+        const pos = Number(i) + 1
+        const purchaseid = buys[i]._id
+        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
+
+        const month = Number(buys[i].date.slice(5,7))
+        for (let x in graphdata.labels){
+            if (month == (Number(x)+1)){
+                gdata[x] = gdata[x] + buys[i].price
+            }
+        }
 
 
+        userSpendings.push(tempdata)
+    }
+
+    console.log(gdata)
     function upateTable(){
        console.log('Table Updated')
         // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
