@@ -37,17 +37,19 @@ export default function dashboard ({data, buys}) {
         const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
 
         const month = Number(buys[i].date.slice(5,7))
-        for (let x in graphdata.labels){
-            if (month == (Number(x)+1)){
-                gdata[x] = gdata[x] + buys[i].price
+        const currentyear = new Date()
+
+        if (Number(buys[i].date.slice(0,4)) == currentyear.getFullYear() ){
+            for (let x in graphdata.labels){
+                if (month == (Number(x)+1)){
+                    gdata[x] = gdata[x] + buys[i].price
+                }
             }
         }
-
 
         userSpendings.push(tempdata)
     }
 
-    console.log(gdata)
     function upateTable(){
        console.log('Table Updated')
         // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
