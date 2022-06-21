@@ -19,6 +19,8 @@ export default function dashboard ({data, buys}) {
 
     let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
+    const pieInfo = []
+
 
     let userSpendings = []
     const graphdata = {
@@ -63,7 +65,7 @@ export default function dashboard ({data, buys}) {
 
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
-        {/* <PieChart /> */}
+        <PieChart data={pieInfo}/>
         <NewPurchase userId={person.userid}/>
         </>
     )

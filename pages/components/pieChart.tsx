@@ -42,6 +42,7 @@ const PieChart = (props) => {
     return (
         <>
         <h1> The PieChart goes in here</h1>
+        <h2>{props.data}</h2>
         <Doughnut data={piedata} width={50} height={50} options={options} />
         </>
     )
