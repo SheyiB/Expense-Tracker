@@ -1,7 +1,7 @@
 const Table = (props)=> {
 
-    const onDelete =(id)=>{
-        console.log(id)
+    const onDelete =(e)=>{
+        console.log(e.target)
     }
 
     return (
@@ -12,7 +12,7 @@ const Table = (props)=> {
         <thead><th>S/N</th><th>Item</th><th>Category</th><th>Amount</th><th>Date</th></thead>
         <tbody>
         {props.spendings.map(
-            data => (<tr key={data.id}>{data.map(item =><td key={item.id}>{item}</td>)} <button type='button'>delete</button></tr>))}
+            data => (<tr key={data.id}>{data.map(item =><td key={item.id}>{item}</td>)} <button type='button' onClick={onDelete}>delete</button></tr>))}
         {/* {props.spendings.map(data => <tr key={data.id}>{data.map(item => <td key={item.id}>{item}</td>)}</tr>)}  */}
         </tbody>
 

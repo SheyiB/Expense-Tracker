@@ -17,6 +17,7 @@ export default function dashboard ({data, buys}) {
     userid: data._id
     }
 
+    let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
 
     let userSpendings = []
@@ -25,16 +26,18 @@ export default function dashboard ({data, buys}) {
         const currendata = []
         const pos = Number(i) + 1
         const purchaseid = buys[i]._id
-        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].createdAt.slice(0,10)]
+        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
+
+        console.log(buys[i].date.slice(5,7))
 
         userSpendings.push(tempdata)
     }
 
     const graphdata = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         datasets: [
             {
-                data: [0.1, 0.4, 0.2, 0.3, 0.7, 0.4, 0.6, 0.3],
+                data: gdata,
             },
         ],
     };
@@ -53,7 +56,7 @@ export default function dashboard ({data, buys}) {
         <Table spendings={userSpendings}  onclick={upateTable}/>
 
         <button onClick={upateTable}> update </button>
-        {/* <Graph data={graphdata}/> */}
+        <Graph data={graphdata}/>
         {/* <PieChart /> */}
         <NewPurchase userId={person.userid}/>
         </>
