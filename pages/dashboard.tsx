@@ -1,7 +1,7 @@
 import Graph from './components/graph'
 import NewPurchase from './components/newPurchase'
 import PieChart from './components/pieChart'
-import Table from './components/table'
+import Tables from './components/tables'
 import UserBasic from './components/userBasics'
 import Image from 'next/image'
 import { useState} from 'react'
@@ -61,7 +61,7 @@ export default function dashboard ({data, buys}) {
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        <Table spendings={userSpendings}  onclick={upateTable}/>
+        <Tables data={buys}/>
 
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
