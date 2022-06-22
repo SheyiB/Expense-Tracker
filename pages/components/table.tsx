@@ -1,3 +1,4 @@
+
 const Table = ({purchase})=> {
 
     const onDelete =(e)=>{
