@@ -1,10 +1,6 @@
+import axios from 'axios';
 
-const Table = ({purchase})=> {
-
-    const onDelete =(e)=>{
-        console.log(e.target)
-        console.log(purchase._id)
-    }
+const Table = ({purchase, onDelete})=> {
 
     return (
         <>
