@@ -36,8 +36,8 @@ export default function dashboard ({data, buys}) {
         const currendata = []
         const pos = Number(i) + 1
         const purchaseid = buys[i]._id
-        const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
-
+        //const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
+        console.log(buys[i])
         const month = Number(buys[i].date.slice(5,7))
         const currentyear = new Date()
 
@@ -49,7 +49,7 @@ export default function dashboard ({data, buys}) {
             }
         }
 
-        userSpendings.push(tempdata)
+        //userSpendings.push(tempdata)
     }
 
     function upateTable(){
