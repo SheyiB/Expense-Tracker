@@ -6,14 +6,14 @@ const Tables = ({data, userid}) =>{
     const [userdata, setuserdata] = useState(data)
 
     const onDelete = async(id)=>{
-        console.log(data)
-        console.log(userdata)
+        console.log('The data gotten by ssr is -> ' + data)
+        console.log('The current state of the Data is ' + userdata)
         axios.delete(`http://localhost:7000/api/v2/spendingApp/purchase/${id}`)
         .then(res => console.log(res.data))
 		.catch(err => console.log(err.message))
 
         const purchdata =  axios.get(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${userid}`)
-        console.log(purchdata)
+        console.log('New data is' + purchdata)
         setuserdata(purchdata)
     }
     return(
