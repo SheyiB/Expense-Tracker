@@ -8,12 +8,12 @@ const Table = ({purchase})=> {
     return (
         <>
             <h3>{purchase.item}</h3>
-            <ol>
-                <li>{purchase.price}</li>
-                <li>{purchase.category}</li>
-                <li>{purchase.date}</li>
-            </ol>
-            <button onClick={onDelete}>Delete</button>
+            <div>
+                <span>{purchase.price}</span>
+                <span>{purchase.category}</span>
+                <span>{purchase.date}</span>
+                <button onClick={onDelete}>Delete</button>
+            </div>
             {/* data => (<tr key={data.id}>{data.map(item =><td key={item.id}>{item}</td>)} <button type='button' onClick={onDelete}>delete</button></tr>))} */}
 
         </>
