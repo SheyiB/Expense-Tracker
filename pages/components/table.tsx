@@ -2,6 +2,7 @@ const Table = ({purchase})=> {
 
     const onDelete =(e)=>{
         console.log(e.target)
+        console.log(purchase._id)
     }
 
     return (
@@ -12,6 +13,7 @@ const Table = ({purchase})=> {
                 <li>{purchase.category}</li>
                 <li>{purchase.date}</li>
             </ol>
+            <button onClick={onDelete}>Delete</button>
             {/* data => (<tr key={data.id}>{data.map(item =><td key={item.id}>{item}</td>)} <button type='button' onClick={onDelete}>delete</button></tr>))} */}
 
         </>
