@@ -3,25 +3,26 @@ import axios from 'axios';
 import {useState} from 'react';
 
 const Tables = ({data, userid}) =>{
-    const  [ purchase, setpurchase] = useState([data])
+    const  [ purchase, setpurchase] = useState(data)
 
     const onDelete = async(id)=>{
-        console.log('The data gotten by ssr is -> ' + data)
-        console.log('The current state of the Data is ' + purchase)
+        console.log('The data gotten by ssr is -> ' + data.item)
+        console.log('The current state of the Data is ' + purchase[0].item)
         axios.delete(`http://localhost:7000/api/v2/spendingApp/purchase/${id}`)
         .then(res => console.log(res.data))
 		.catch(err => console.log(err.message))
 
-        const purchdata = await axios.get(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${userid}`)
+        const purchdata = axios.get(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${userid}`)
         console.log('New data is' + purchdata)
-        setpurchase([purchdata])
+        //setpurchase([purchdata])
     }
     return(
         <>
         <h3>Recent Spendings</h3>
+        <h2> {purchase[0].item} </h2>
         <div>
 
-            {data.map((item)=>(
+            {purchase.map((item)=>(
             <Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />
             ))}
         </div>
