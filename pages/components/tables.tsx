@@ -20,7 +20,8 @@ const Tables = ({data, userid}) =>{
         <>
         <h3>Recent Spendings</h3>
         <div>
-            {purchase.map((item)=>(
+
+            {data.map((item)=>(
             <Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />
             ))}
         </div>
