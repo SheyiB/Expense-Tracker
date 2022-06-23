@@ -61,7 +61,7 @@ export default function dashboard ({data, buys}) {
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        <Tables data={buys}/>
+        <Tables data={buys} userid='62a9018b3c07aa27a7b8959e'/>
 
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
