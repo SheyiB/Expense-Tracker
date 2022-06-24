@@ -1,75 +1,53 @@
-import { useState, Component} from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 
 
-export default class NewPurchase extends Component{
-    constructor(props){
-        super(props);
+const NewPurchase = ({user}) =>{
 
-        this.onChangeItem = this.onChangeItem.bind(this);
-        this.onChangeCategory = this.onChangeCategory.bind(this);
-        this.onChangeAmount = this.onChangeAmount.bind(this);
-        this.onChangeDate = this.onChangeDate.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+    const [item, setItem] = useState('')
+    const [category, setCategory] = useState('')
+    const [amount, setAmount] = useState(0)
+    const [date, setDate] = useState('')
 
-        this.state = {
-            item: '',
-            price: 0,
-            category: '',
-            date: '',
-            user: props.userId
-        }
+    const onSubmit = async(e) => {
+        e.preventDefault()
+       if(!item || !category || !amount || !date) {
+           alert('Please fill all fields')
+       }
+        const purchase = {item, category, amount, date,  user}
+
+        const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${user}`,{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            body: JSON.stringify(purchase),
+        })
+
+        const data = await res.json()
+
+        setItem('')
+        setCategory('')
+        setAmount(0)
+        setDate('')
+
     }
-    onChangeItem(e){
-        this.setState({ item : e.target.value})
-    }
-
-    onChangeCategory(e){
-        this.setState({ category : e.target.value})
-    }
-
-    onChangeAmount(e){
-        this.setState({ price : e.target.value})
-    }
-
-    onChangeDate(e){
-        this.setState({ date : e.target.value})
-    }
-
-    onSubmit(e){
-        const purchase = {
-            item: this.state.item,
-            price: this.state.price,
-            category: this.state.category,
-            date: this.state.date,
-            user: this.state.user
-
-        }
-
-        axios.post(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`, purchase)
-		  .then(res => console.log(res.data))
-		  .catch(err => console.log(err.message))
-        console.log(purchase)
-    }
-
-
-
-
-    render(){
 
     return (
         <>
-        <form>
-            <input type="text" className="item"  onChange={this.onChangeItem} placeholder="Item"/><br/>
-            <input type="text" className="category"  onChange={this.onChangeCategory} placeholder="Category"/><br/>
-            <input type="number" className="amount"  onChange={this.onChangeAmount} placeholder="Amount"/><br/>
-            <input type="date" className="date"  onChange={this.onChangeDate} placeholder="Date"/><br/>
-            <button  type='submit' onClick={this.onSubmit}> Submit </button>
+        <form onSubmit={onSubmit}>
+            <input type="text" className="item" required value={item} onChange={(e) => setItem(e.target.value)} placeholder="Item"/><br/>
+            <input type="text" className="category" required value={category}  onChange={(e) => setCategory(e.target.value)} placeholder="Category"/><br/>
+            <input type="number" className="amount" required value={amount}  onChange={(e) => setAmount(Number(e.target.value))} placeholder="Amount"/><br/>
+            <input type="date" className="date" required value={date} onChange={(e) => setDate(e.target.value)} placeholder="Date"/><br/>
+            <button  type='submit'> Submit </button>
         </form>
         </>
     )
+
     }
 
-}
 
+
+export default NewPurchase
