@@ -66,7 +66,7 @@ export default function dashboard ({data, buys}) {
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
         {/* <PieChart data={pieInfo}/> */}
-        <NewPurchase userId={person.userid}/>
+        <NewPurchase user={person.userid}/>
         </>
     )
 }
