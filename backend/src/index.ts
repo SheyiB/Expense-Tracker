@@ -10,6 +10,7 @@ import { usersRouter } from "./users/users.router" ;
 import { userRouter } from "./routes/user.router";
 import { purchaseRouter } from './routes/purchase.router';
 import {db} from './db';
+import morgan from "morgan";
 
 
 dotenv.config();
@@ -31,6 +32,7 @@ const app = express();
  */
 app.use(helmet());
 app.use(cors());
+app.use(morgan('dev'));
 
 app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
