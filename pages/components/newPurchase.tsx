@@ -15,7 +15,7 @@ const NewPurchase = ({user}) =>{
        if(!item || !category || !amount || !date) {
            alert('Please fill all fields')
        }
-        const purchase = {item, category, amount, date,  user}
+        const purchase = {item: item, category: category, amount:amount, date:date,  user:user}
 
         const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${user}`,{
             method: 'POST',

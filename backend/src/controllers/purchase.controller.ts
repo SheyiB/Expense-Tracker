@@ -8,6 +8,7 @@ export const createPurchase = async (req: Request, res: Response) =>{
         const purchase = await Purchase.createPurchase(req.body);
         return res.status(201).json(purchase)
     }  catch(e){
+        console.log(e.message)
         return res.status(500).json(e.message)
     }
 }
