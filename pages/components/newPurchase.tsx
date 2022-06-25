@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
-
-
 
 const NewPurchase = ({user}) =>{
 
@@ -12,9 +9,7 @@ const NewPurchase = ({user}) =>{
 
     const onSubmit = async(e) => {
         e.preventDefault()
-       if(!item || !category || !amount || !date) {
-           alert('Please fill all fields')
-       }
+    
         const purchase = {item: item, category: category, price:amount, date:date,  user:user}
 
         const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${user}`,{

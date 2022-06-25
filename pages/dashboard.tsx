@@ -4,10 +4,12 @@ import PieChart from './components/pieChart'
 import Tables from './components/tables'
 import UserBasic from './components/userBasics'
 import Image from 'next/image'
-import { useState} from 'react'
+import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
 
 export default function dashboard ({data, buys}) {
+
+    const [purch, setPurch] = useState(data)
 
     const person = {
     username : data.firstname,
@@ -17,10 +19,29 @@ export default function dashboard ({data, buys}) {
     userid: data._id
     }
 
+    console.log(purch)
+
+    // useEffect(() =>{
+    //     const getPurchases = async () => {
+    //         const purchaseFromServer = await fetchPurchases()
+            
+    //         setPurch(purchaseFromServer)
+    //     }
+
+
+    //     getPurchases()
+    // })
+
+    const fetchPurchases = async(id) => {
+        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+        const data = await purch.json()
+
+        return data
+    }
+
     let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
     const pieInfo = []
-
 
     let userSpendings = []
     const graphdata = {
