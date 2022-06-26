@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const NewPurchase = ({user}) =>{
+const NewPurchase = ({user, addPurchase}) =>{
 
     const [item, setItem] = useState('')
     const [category, setCategory] = useState('')
@@ -9,18 +9,8 @@ const NewPurchase = ({user}) =>{
 
     const onSubmit = async(e) => {
         e.preventDefault()
-    
-        const purchase = {item: item, category: category, price:amount, date:date,  user:user}
 
-        const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${user}`,{
-            method: 'POST',
-            headers: {
-                'Content-type' : 'application/json',
-            },
-            body: JSON.stringify(purchase),
-        })
-
-        const data = await res.json()
+        addPurchase(item, category, amount, date, user)
 
         setItem('')
         setCategory('')
@@ -28,6 +18,8 @@ const NewPurchase = ({user}) =>{
         setDate('')
 
     }
+
+
 
     return (
         <>

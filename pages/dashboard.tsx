@@ -21,16 +21,16 @@ export default function dashboard ({data, buys}) {
 
     console.log(purch)
 
-    // useEffect(() =>{
-    //     const getPurchases = async () => {
-    //         const purchaseFromServer = await fetchPurchases()
+     useEffect(() =>{
+         const getPurchases = async () => {
+             const purchaseFromServer = await fetchPurchases()
             
-    //         setPurch(purchaseFromServer)
-    //     }
+             setPurch(purchaseFromServer)
+         }
 
 
-    //     getPurchases()
-    // })
+         getPurchases()
+     })
 
     const fetchPurchases = async(id) => {
         const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
@@ -39,6 +39,24 @@ export default function dashboard ({data, buys}) {
         return data
     }
 
+    const addPurchase = async(item, category, amount, date, user) => {
+        const purchase = {item: item, category: category, price:amount, date:date,  user:user}
+
+        const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${user}`,{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            body: JSON.stringify(purchase),
+        })
+
+        const userpurchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+
+        const result = await userpurchase.json()
+
+        setPurch(result)
+
+    }
     let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
     const pieInfo = []
@@ -87,7 +105,7 @@ export default function dashboard ({data, buys}) {
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
         {/* <PieChart data={pieInfo}/> */}
-        <NewPurchase user={person.userid}/>
+        <NewPurchase user={person.userid}  addPurchase={addPurchase}/>
         </>
     )
 }
