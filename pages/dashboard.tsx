@@ -19,18 +19,16 @@ export default function dashboard ({data, buys}) {
     userid: data._id
     }
 
-    console.log(purch)
-
-     useEffect(() =>{
-         const getPurchases = async () => {
-             const purchaseFromServer = await fetchPurchases()
+     // useEffect(() =>{
+     //     const getPurchases = async () => {
+     //         const purchaseFromServer = await fetchPurchases()
             
-             setPurch(purchaseFromServer)
-         }
+     //         setPurch(purchaseFromServer)
+     //     }
 
 
-         getPurchases()
-     })
+     //     getPurchases()
+     // })
 
     const fetchPurchases = async(id) => {
         const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
@@ -76,7 +74,7 @@ export default function dashboard ({data, buys}) {
         const pos = Number(i) + 1
         const purchaseid = buys[i]._id
         //const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
-        console.log(buys[i])
+        
         const month = Number(buys[i].date.slice(5,7))
         const currentyear = new Date()
 
@@ -100,7 +98,7 @@ export default function dashboard ({data, buys}) {
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        <Tables data={buys} userid='62a9018b3c07aa27a7b8959e'/>
+        <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
 
         <button onClick={upateTable}> update </button>
         <Graph data={graphdata}/>
