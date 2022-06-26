@@ -6,6 +6,7 @@ import UserBasic from './components/userBasics'
 import Image from 'next/image'
 import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
+import {useRouter} from 'next/router';
 
 export default function dashboard ({data, buys}) {
 
@@ -18,6 +19,15 @@ export default function dashboard ({data, buys}) {
     inBank: 50000,
     userid: data._id
     }
+
+    const router = useRouter();
+
+    const refreshData = () => {
+        router.replace(router.asPath);
+    }
+
+
+        
 
      // useEffect(() =>{
      //     const getPurchases = async () => {
@@ -93,8 +103,12 @@ export default function dashboard ({data, buys}) {
         //userSpendings.push(tempdata)
     }
 
-    function upateTable(){
-       console.log('Table Updated')
+    const upateTable= async() => {
+       refreshData()
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+       const data = await purch.json()
+
+       setPurch(data)
         // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
     }
 
@@ -103,11 +117,11 @@ export default function dashboard ({data, buys}) {
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
         <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
-
-        <button onClick={upateTable}> update </button>
+        <span> {purch.length}</span>
+        <button onClick={refreshData}> update </button>
         <Graph data={graphdata}/>
         {/* <PieChart data={pieInfo}/> */}
-        <NewPurchase user={person.userid}  addPurchase={addPurchase}/>
+        <NewPurchase user={person.userid}  addPurchase={addPurchase} refreshData={refreshData}/>
         </>
     )
 }

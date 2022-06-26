@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-const NewPurchase = ({user, addPurchase}) =>{
+
+const NewPurchase = ({user, addPurchase, refreshData}) =>{
 
     const [item, setItem] = useState('')
     const [category, setCategory] = useState('')
@@ -11,6 +12,8 @@ const NewPurchase = ({user, addPurchase}) =>{
         e.preventDefault()
 
         addPurchase(item, category, amount, date, user)
+        refreshData()
+
 
         setItem('')
         setCategory('')

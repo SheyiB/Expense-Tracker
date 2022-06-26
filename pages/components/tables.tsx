@@ -5,6 +5,14 @@ import {useState} from 'react';
 const Tables = ({data, userid}) =>{
     const  [ purchase, setpurchase] = useState(data)
     
+    const upateTable= async() => {
+       //refreshData()
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+       const data = await purch.json()
+
+       setpurchase(data)
+        // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
+    }
 
     const onDelete = async(id)=>{
         console.log('The data gotten by ssr is -> ' + data.item)
@@ -24,6 +32,8 @@ const Tables = ({data, userid}) =>{
         <div>
         {purchase.map((item)=>(<Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />))}
         </div>
+
+        <button onClick={upateTable}> Refresh</button>
 
         </>
     )
