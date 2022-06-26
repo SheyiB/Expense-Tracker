@@ -9,7 +9,7 @@ import type {GetStaticProps} from "next";
 
 export default function dashboard ({data, buys}) {
 
-    const [purch, setPurch] = useState(data)
+    const [purch, setPurch] = useState(buys)
 
     const person = {
     username : data.firstname,
@@ -52,6 +52,10 @@ export default function dashboard ({data, buys}) {
 
         const result = await userpurchase.json()
 
+        console.log(result)
+
+        //About to Update
+        console.log('About To Update')
         setPurch(result)
 
     }

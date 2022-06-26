@@ -4,6 +4,7 @@ import {useState} from 'react';
 
 const Tables = ({data, userid}) =>{
     const  [ purchase, setpurchase] = useState(data)
+    
 
     const onDelete = async(id)=>{
         console.log('The data gotten by ssr is -> ' + data.item)
@@ -19,12 +20,9 @@ const Tables = ({data, userid}) =>{
     return(
         <>
         <h3>Recent Spendings</h3>
-        <h2> {purchase[0].item} </h2>
+       
         <div>
-
-            {purchase.map((item)=>(
-            <Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />
-            ))}
+        {purchase.map((item)=>(<Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />))}
         </div>
 
         </>
