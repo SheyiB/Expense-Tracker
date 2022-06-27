@@ -12,13 +12,7 @@ export default function dashboard ({data, buys}) {
 
     const [purch, setPurch] = useState(buys)
 
-    const person = {
-    username : data.firstname,
-    monthlySpend: 20000,
-    atHand: 1000,
-    inBank: 50000,
-    userid: data._id
-    }
+    const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
 
     const router = useRouter();
 
@@ -76,7 +70,7 @@ export default function dashboard ({data, buys}) {
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
         <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
     
-        <Graph data={graphdata}/>
+        <Graph data={graphdata} buys={buys}/>
         {/* <PieChart data={pieInfo}/> */}
         
         </>
