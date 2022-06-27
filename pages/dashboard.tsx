@@ -26,20 +26,6 @@ export default function dashboard ({data, buys}) {
         router.replace(router.asPath);
     }
 
-
-        
-
-     // useEffect(() =>{
-     //     const getPurchases = async () => {
-     //         const purchaseFromServer = await fetchPurchases()
-            
-     //         setPurch(purchaseFromServer)
-     //     }
-
-
-     //     getPurchases()
-     // })
-
     const fetchPurchases = async(id) => {
         const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
         const data = await purch.json()
@@ -47,12 +33,8 @@ export default function dashboard ({data, buys}) {
         return data
     }
 
-    
     let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
-    const pieInfo = []
-
-    let userSpendings = []
     const graphdata = {
         labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         datasets: [
@@ -66,7 +48,6 @@ export default function dashboard ({data, buys}) {
         const currendata = []
         const pos = Number(i) + 1
         const purchaseid = buys[i]._id
-        //const tempdata = [pos, buys[i].item, buys[i].category,  buys[i].price, buys[i].date.slice(0,10)]
         
         const month = Number(buys[i].date.slice(5,7))
         const currentyear = new Date()
@@ -79,7 +60,6 @@ export default function dashboard ({data, buys}) {
             }
         }
 
-        //userSpendings.push(tempdata)
     }
 
     const upateTable= async() => {
@@ -88,7 +68,6 @@ export default function dashboard ({data, buys}) {
        const data = await purch.json()
 
        setPurch(data)
-        // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
     }
 
     return (
