@@ -34,15 +34,9 @@ const Tables = ({data, userid}) =>{
     }
 
     const onDelete = async(id)=>{
-        console.log('The data gotten by ssr is -> ' + data.item)
-        console.log('The current state of the Data is ' + purchase[0].item)
-        axios.delete(`http://localhost:7000/api/v2/spendingApp/purchase/${id}`)
-        .then(res => console.log(res.data))
-		.catch(err => console.log(err.message))
-
-        const purchdata = axios.get(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${userid}`)
-        console.log('New data is' + purchdata)
-        //setpurchase([purchdata])
+        await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/${id}`,{method: 'DELETE'})
+        
+        upateTable()
     }
     return(
         <>
