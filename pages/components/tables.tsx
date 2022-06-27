@@ -12,6 +12,8 @@ const Tables = ({data, userid}) =>{
   //  const refreshData = () => {
     //    router.replace(router.asPath);
   //  }
+
+    const [addNew, setAddNew] = useState(false)
     
     const upateTable= async() => {
        
@@ -20,6 +22,16 @@ const Tables = ({data, userid}) =>{
 
        setpurchase(data)
         // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
+    }
+
+    const add = ()=>{
+        if(addNew == true) {
+            setAddNew(false)
+        }
+        else{
+            setAddNew(true)
+        }
+        
     }
     const addPurchase = async(item, category, amount, date, user) => {
         const purchase = {item: item, category: category, price:amount, date:date,  user:user}
@@ -31,6 +43,9 @@ const Tables = ({data, userid}) =>{
             },
             body: JSON.stringify(purchase),
         })
+
+        setAddNew(false)
+
     }
 
     const onDelete = async(id)=>{
@@ -45,9 +60,9 @@ const Tables = ({data, userid}) =>{
         <div>
         {purchase.map((item)=>(<Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />))}
         </div>
-        <NewPurchase user={userid}  addPurchase={addPurchase} refreshData={upateTable}/>
+        <button type='button' onClick={add}> Add New Purchase </button>
 
-        <button > Refresh</button>
+        { addNew && <NewPurchase user={userid}  addPurchase={addPurchase} refreshData={upateTable}/>}
 
         </>
     )

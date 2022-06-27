@@ -75,8 +75,7 @@ export default function dashboard ({data, buys}) {
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
         <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
-        <span> {purch.length}</span>
-        <button onClick={refreshData}> update </button>
+    
         <Graph data={graphdata}/>
         {/* <PieChart data={pieInfo}/> */}
         
