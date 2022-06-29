@@ -58,7 +58,7 @@ const Tables = ({data, userid}) =>{
         <h3>Recent Spendings</h3>
        
         <div>
-        {purchase.map((item)=>(<Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />))}
+        {purchase.length >1 ? purchase.map((item)=>(<Table key={item._id} purchase={item} onDelete={() => onDelete(item._id)} />)) : <h3> No Data to Display </h3>}
         </div>
         <button type='button' onClick={add}> Add New Purchase </button>
 
