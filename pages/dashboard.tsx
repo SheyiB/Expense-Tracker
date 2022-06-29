@@ -48,7 +48,10 @@ export default function dashboard ({data, buys}) {
         <Graph  buys={buys}/>
         </div>
         
-        <PChart /> 
+        <div style={styling}>
+        <PChart />
+        </div>
+         
         
         </>
     )
