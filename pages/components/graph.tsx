@@ -1,4 +1,4 @@
-import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from "chart.js";
+ import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from "chart.js";
 
 import {useState} from 'react';
 
@@ -52,7 +52,7 @@ const Graph = ({data, buys}) => {
     const options = {
         pulugins: {
             legend: {
-                display: false,
+                display: true,
             },
         },
         elements: {
@@ -77,10 +77,15 @@ const Graph = ({data, buys}) => {
             },
         },
     };
+
+    const graphStyle = {height: '400px'}
     return (
         <>
         <h1> The Graph goes in here</h1>
-        <Line data={graphData} width={100} height={40} options={options} />
+       
+         <Line data={graphData} width={100} height={40} options={options} />   
+       
+        
         </>
     )
 }
