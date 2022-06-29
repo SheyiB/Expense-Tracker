@@ -7,16 +7,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import { Bar, Line, Scatter, Bubble} from "react-chartjs-2";
 const Graph = ({data, buys}) => {
 
-    const [graphData, setgraphData] = useState(data);
-
-    const upateGraphData = async() => {
-       
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
-       const data = await purch.json()
-
-       setpurchase(data)
-        // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
-    }
+    //const [graphData, setgraphData] = useState(data);
 
     let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
 
@@ -47,14 +38,20 @@ const Graph = ({data, buys}) => {
 
     }
 
-    console.log(graphdata.labels, gdata)
+
 
     const options = {
+        responsive: true,
         pulugins: {
             legend: {
+                position: 'top' as const,
+            },
+            title:{
                 display: true,
+                text: 'Monthly Spendings Graph'
             },
         },
+
         elements: {
             line:{
                 tension: 0,
@@ -78,12 +75,12 @@ const Graph = ({data, buys}) => {
         },
     };
 
-    const graphStyle = {height: '400px'}
+    
     return (
         <>
         <h1> The Graph goes in here</h1>
        
-         <Line data={graphData} width={100} height={40} options={options} />   
+         <Line data={graphdata} width={100} height={40} options={options} />   
        
         
         </>

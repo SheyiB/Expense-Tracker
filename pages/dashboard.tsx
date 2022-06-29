@@ -27,34 +27,6 @@ export default function dashboard ({data, buys}) {
         return data
     }
 
-    let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
-
-    const graphdata = {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        datasets: [
-            {
-                data: gdata,
-            },
-        ],
-    };
-
-    for (let i in buys){
-        const currendata = []
-        const pos = Number(i) + 1
-        const purchaseid = buys[i]._id
-        
-        const month = Number(buys[i].date.slice(5,7))
-        const currentyear = new Date()
-
-        if (Number(buys[i].date.slice(0,4)) == currentyear.getFullYear() ){
-            for (let x in graphdata.labels){
-                if (month == (Number(x)+1)){
-                    gdata[x] = gdata[x] + buys[i].price
-                }
-            }
-        }
-
-    }
 
     const upateTable= async() => {
        refreshData()
@@ -63,6 +35,7 @@ export default function dashboard ({data, buys}) {
 
        setPurch(data)
     }
+
     const styling = {height: '400px' , width: '600px'}
 
     return (
@@ -72,7 +45,7 @@ export default function dashboard ({data, buys}) {
         <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
         
         <div style={styling}> 
-        <Graph data={graphdata} buys={buys}/>
+        <Graph  buys={buys}/>
         </div>
         
         {/* <PieChart data={pieInfo}/> */}
