@@ -1,51 +1,22 @@
-// //import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from "chart.js";
-
-// //ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
-
-// import { Bar, Line, Scatter, Bubble, Doughnut} from "react-chartjs-2"
+import { PieChart } from 'react-minimal-pie-chart';
 
 
-// const PieChart = (props) => {
-//     const piedata ={
-//         backgroundColor: [
-//             "rgb(2, 88, 255)",
-//             "rgb(249, 151, 0",
-//             "rgb(255, 199, 0)",
-//             "rgb(32, 214, 152)",
-//         ],
-//         labels: ["Tech", "Food", "Entertainment", "Clothing"],
-//         datasets: [
-//             {
-//                 label: "My first Dataset",
-//                 data: [300, 50, 100, 300],
-//                 backgroundColor: [
-//                     "rgb(2, 88, 255)",
-//                     "rgb(249, 151, 0",
-//                     "rgb(255, 199, 0)",
-//                     "rgb(32, 214, 152)",
-//                 ],
-//                 hoverOffset: 4,
-//             },
-//         ],
-//     };
 
-//     const options = {
-//         elements: {
-//             arc: {
-//                 weight: 0.5,
-//                 borderWidth: 3,
-//             },
-//         },
-//         cutout: 150,
+const PChart = () => {
 
-//     };
-//     return (
-//         <>
-//         <h1> The PieChart goes in here</h1>
-//         <h2>{props.data}</h2>
-//         <Doughnut data={piedata} width={50} height={50} options={options} />
-//         </>
-//     )
-// }
+    const piedata = [
+    { title: 'One', value: 10, color: '#E38627' },
+    { title: 'Two', value: 15, color: '#C13C37' },
+    { title: 'Three', value: 20, color: '#6A2135' },
+  ]
 
-// export default PieChart
+    return (
+        <>
+        <h1> The PieChart goes in here</h1>
+
+        <PieChart  data={piedata} />;
+        </>
+    )
+}
+
+export default PChart

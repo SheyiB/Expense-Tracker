@@ -1,6 +1,6 @@
 import Graph from './components/graph'
 import NewPurchase from './components/newPurchase'
-import PieChart from './components/pieChart'
+import PChart from './components/pieChart'
 import Tables from './components/tables'
 import UserBasic from './components/userBasics'
 import Image from 'next/image'
@@ -48,7 +48,7 @@ export default function dashboard ({data, buys}) {
         <Graph  buys={buys}/>
         </div>
         
-        {/* <PieChart data={pieInfo}/> */}
+        <PChart /> 
         
         </>
     )
