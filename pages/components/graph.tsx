@@ -20,6 +20,40 @@ const Graph = ({data, buys}) => {
         ],
     };
 
+    const piedata ={
+        backgroundColor: [
+            "rgb(2, 88, 255)",
+            "rgb(249, 151, 0",
+            "rgb(255, 199, 0)",
+            "rgb(32, 214, 152)",
+        ],
+        labels: ["Tech", "Food", "Entertainment", "Clothing"],
+        datasets: [
+            {
+                label: "My first Dataset",
+                data: [300, 50, 100, 300],
+                backgroundColor: [
+                    "rgb(2, 88, 255)",
+                    "rgb(249, 151, 0",
+                    "rgb(255, 199, 0)",
+                    "rgb(32, 214, 152)",
+                ],
+                hoverOffset: 4,
+            },
+        ],
+    };
+
+    const optionss = {
+        elements: {
+            arc: {
+                weight: 0.5,
+                borderWidth: 3,
+            },
+        },
+        cutout: 150,
+
+    };
+
     for (let i in buys){
         const currendata = []
         const pos = Number(i) + 1
@@ -51,6 +85,8 @@ const Graph = ({data, buys}) => {
                 tension: 0,
                 borderWidth: 2,
                 borderColor: "rgba(47,97,68, 1)",
+                
+                
             },
             point : {
                 radius: 0,
@@ -61,6 +97,8 @@ const Graph = ({data, buys}) => {
 
         
         },
+    
+
     };
 
     
