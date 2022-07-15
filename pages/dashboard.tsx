@@ -10,7 +10,7 @@ import {useRouter} from 'next/router';
 
 export default function dashboard ({data, buys}) {
 
-    console.log(buys)
+    //console.log(buys)
 
     const [purch, setPurch] = useState(buys)
 
@@ -51,7 +51,7 @@ export default function dashboard ({data, buys}) {
         </div>
         
         <div style={styling}>
-        <PChart />
+        <PChart data={buys}/>
         </div>
          
         

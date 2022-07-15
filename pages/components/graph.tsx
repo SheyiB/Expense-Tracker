@@ -104,7 +104,7 @@ const Graph = ({data, buys}) => {
     
     return (
         <>
-        <h1> The Graph goes in here</h1>
+        <h1> Graph of Spendings </h1>
        
          <Line data={graphdata} width={100} height={40} options={options} />   
        
