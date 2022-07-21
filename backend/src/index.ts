@@ -9,6 +9,7 @@ import helmet from "helmet";
 import { usersRouter } from "./users/users.router" ;
 import { userRouter } from "./routes/user.router";
 import { purchaseRouter } from './routes/purchase.router';
+import { authRouter } from './routes/auth.router';
 import {db} from './db';
 import morgan from "morgan";
 
@@ -38,6 +39,7 @@ app.use(express.json());
 app.use("/api/v1/spendingApp/users", usersRouter);
 app.use("/api/v2/spendingApp/users", userRouter);
 app.use("/api/v2/spendingApp/purchase", purchaseRouter);
+app.use("/api/v2/spendingApp/auth", authRouter);
 
 /**
  * Server Activation
