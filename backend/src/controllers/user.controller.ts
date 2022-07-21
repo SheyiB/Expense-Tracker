@@ -3,7 +3,7 @@ import {Request, Response} from "express";
 
 const User = new UserService();
 
-export const createUser = async (req: Request, res: Response) =>{
+export const createUser = async (req: Request, res: Response, next) =>{
     try{
         const user = await User.createUser(req.body);
         return res.status(201).json(user)
@@ -12,7 +12,7 @@ export const createUser = async (req: Request, res: Response) =>{
     }
 }
 
-export const getAllUsers = async (req: Request, res: Response) =>{
+export const getAllUsers = async (req: Request, res: Response, next) =>{
     try{
         const user = await User.getAllUser();
         return res.status(200).json(user)
@@ -21,7 +21,7 @@ export const getAllUsers = async (req: Request, res: Response) =>{
     }
 }
 
-export const getUser = async (req: Request, res: Response) =>{
+export const getUser = async (req: Request, res: Response, next) =>{
     try{
         const user = await User.getUser(req.params.id);
         return res.status(200).json(user)
@@ -30,7 +30,7 @@ export const getUser = async (req: Request, res: Response) =>{
     }
 }
 
-export const updateUser = async (req: Request, res: Response) =>{
+export const updateUser = async (req: Request, res: Response, next) =>{
     try{
         const user = await User.updateUser(req.params.id, req.body);
         return res.status(200).json(user)
@@ -39,7 +39,7 @@ export const updateUser = async (req: Request, res: Response) =>{
     }
 }
 
-export const deleteUser = async (req: Request, res: Response) =>{
+export const deleteUser = async (req: Request, res: Response, next) =>{
     try{
         const user = await User.deleteUser(req.params.id);
         return res.status(204).json({data: user})

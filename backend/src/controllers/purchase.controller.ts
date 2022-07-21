@@ -3,7 +3,7 @@ import {Request, Response} from "express";
 
 const Purchase = new PurchaseService();
 
-export const createPurchase = async (req: Request, res: Response) =>{
+export const createPurchase = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.createPurchase(req.body);
         return res.status(201).json(purchase)
@@ -13,7 +13,7 @@ export const createPurchase = async (req: Request, res: Response) =>{
     }
 }
 
-export const getAllPurchases = async (req: Request, res: Response) =>{
+export const getAllPurchases = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.getAllPurchase(req.query);
         return res.status(200).json(purchase)
@@ -22,7 +22,7 @@ export const getAllPurchases = async (req: Request, res: Response) =>{
     }
 }
 
-export const getPurchase = async (req: Request, res: Response) =>{
+export const getPurchase = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.getPurchase(req.params.id);
         return res.status(200).json(purchase)
@@ -31,7 +31,7 @@ export const getPurchase = async (req: Request, res: Response) =>{
     }
 }
 
-export const updatePurchase = async (req: Request, res: Response) =>{
+export const updatePurchase = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.updatePurchase(req.params.id, req.body);
         return res.status(200).json(purchase)
@@ -40,7 +40,7 @@ export const updatePurchase = async (req: Request, res: Response) =>{
     }
 }
 
-export const deletePurchase = async (req: Request, res: Response) =>{
+export const deletePurchase = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.deletePurchase(req.params.id);
         return res.status(204).json({data: purchase})
