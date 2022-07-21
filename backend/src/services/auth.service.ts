@@ -33,10 +33,11 @@ export class AuthService{
 
                 const token = user.getSignedJwtToken();
 
-                if(!token) reject ('Could not Sign User');
+                if(!token) reject ('Could not Sign In User');
                 
 
-                resolve(sendTokenResponse(user,200,res))
+
+                resolve({user, token})
             }
             catch(e){
                 e.source = 'Get User Service';
