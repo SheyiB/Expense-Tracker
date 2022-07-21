@@ -1,4 +1,4 @@
-import {User, IUser} from '../models/user';
+import {User, IUser, UserLogin} from '../models/user';
 
 export class AuthService{
 	signUp (body: IUser){
@@ -17,9 +17,11 @@ export class AuthService{
         })
     }
 
-    login (email:  string, password: string){
+    login (body: UserLogin){
         return new Promise(async(resolve, reject) => {
             try{
+                
+                const {email, password} = body;
                 
                 const user = await User.findOne({email: email}).select('+password');
 

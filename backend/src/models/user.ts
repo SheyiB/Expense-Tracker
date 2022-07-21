@@ -13,6 +13,13 @@ export interface IUser {
     password: string;
 }
 
+
+export interface UserLogin {
+    email: string,
+    password: string
+}
+
+
 const UserSchema = new Schema<IUser>({
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
