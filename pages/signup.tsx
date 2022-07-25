@@ -2,8 +2,39 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Login.module.css'
 import Link from 'next/link'
+import { useState } from 'react';
+import Router from "next/router"
 
 export default function Home() {
+
+  const [firstname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState(0)
+  const [date, setDate] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+
+  const createUser = async(firstname, lastname, email, phone, date, password) => {
+    const newUser = {firstname, lastname, email, phone, date, password}
+    const res = await fetch(`http://localhost:7000/api/v2/spendingApp/auth/signUp`,{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        })
+    }
+
+    const onSubmit = async(e) => {
+        e.preventDefault()
+        createUser(firstname, lastname, email, phone, date, password)
+        //If successful, show successful, if not show error
+        //re route to login page
+        //Router.push('/');
+    }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -19,15 +50,19 @@ export default function Home() {
 
         <div className={styles.contentSignup}>
         <h1>Sign Up</h1>
-        <form className={styles.formSignup}>
-            <input type="text" placeholder="Full Name"/>
-            <input type="email" placeholder="Email"/>
-            <input type="number" placeholder="Phone Number"/>
-            <input type="date" placeholder="Date of Birth"/>
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <input type="password" placeholder="confirm password"/>
+
+        <form className={styles.formSignup} onSubmit={onSubmit}>
+            
+            <input type="text" required onChange={(e) => setFirstname(e.target.value)} placeholder="First Name"/>
+            <input type="text" required onChange={(e) => setLastname(e.target.value)} placeholder="Last Name"/>    
+            <input type="email" required onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
+            <input type="number" required onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number"/>
+            <input type="date" required onChange={(e) => setDate(e.target.value)} placeholder="Date of Birth"/>
+            <input type="password" required onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
+            <input type="password" required onChange={(e) => setConfirmPassword(e.target.value)} placeholder="confirm password"/>
+            
             <button type="submit"> Sign Up</button>
+
             <p>Existing User?<Link href="/"><a>Login</a></Link></p>
 
           </form>
