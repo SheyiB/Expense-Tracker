@@ -17,7 +17,8 @@ export default function Home() {
 
 
   const createUser = async(firstname, lastname, email, phone, date, password) => {
-    const newUser = {firstname, lastname, email, phone, date, password}
+    const newUser = {firstname, lastname, email, phone, dob: date, password}
+    console.log(newUser)
     const res = await fetch(`http://localhost:7000/api/v2/spendingApp/auth/signUp`,{
             method: 'POST',
             headers: {
@@ -25,14 +26,21 @@ export default function Home() {
             },
             body: JSON.stringify(newUser),
         })
+
+    return res;
     }
 
     const onSubmit = async(e) => {
         e.preventDefault()
-        createUser(firstname, lastname, email, phone, date, password)
+        const user = await createUser(firstname, lastname, email, phone, date, password)
+        console.log(user)
+        if(user.status == 201){
+          Router.push('/');  
+        }
+        
         //If successful, show successful, if not show error
         //re route to login page
-        //Router.push('/');
+        //
     }
 
   return (
