@@ -2,9 +2,42 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Login.module.css'
 import Link from 'next/link';
+import Router from "next/router"
+import {useState} from "react" 
 
 export default function Home() {
-  return (
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const loginUser = async(email, password) => {
+    const user = {email, password}
+    console.log(user)
+    const res = await fetch(`http://localhost:7000/api/v2/spendingApp/auth/login`,{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+
+    return res;
+  }
+
+  const onSubmit = async(e) => {
+        e.preventDefault()
+        const user = await loginUser(email, password)
+        console.log(user)
+        if(user.status == 201){
+          Router.push('/dashboard');  
+        }
+        
+        //If successful, show successful, if not show error
+        //re route to login page
+        //
+  }
+  
+return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -19,11 +52,11 @@ export default function Home() {
 
         <div className={styles.content}>
           <h1>Login</h1>
-          <form className={styles.form}>
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
+          <form className={styles.form} onSubmit={onSubmit}>
+            <input type="text" required onChange={(e) => setEmail(e.target.value)} placeholder="username"/>
+            <input type="password" required onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
 
-            <Link href="/dashboard"><button type="submit">Login</button></Link>
+            <button type="submit">Login</button>
             Read{' '}
             <p>New User?<Link href="/signup"><a>Sign Up</a></Link></p>
           </form>
@@ -33,4 +66,9 @@ export default function Home() {
 
     </div>
   )
+
+
+
 }
+
+  

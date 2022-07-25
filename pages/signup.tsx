@@ -30,7 +30,7 @@ export default function Home() {
     return res;
     }
 
-    const onSubmit = async(e) => {
+  const onSubmit = async(e) => {
         e.preventDefault()
         const user = await createUser(firstname, lastname, email, phone, date, password)
         console.log(user)

@@ -8,15 +8,19 @@ import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
 
+
+
 export default function dashboard ({data, buys}) {
 
-    //console.log(buys)
-
+    
+    
     const [purch, setPurch] = useState(buys)
 
     const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
 
     const router = useRouter();
+
+    
 
     const refreshData = () => {
         router.replace(router.asPath);
