@@ -20,6 +20,7 @@ export default function Home() {
             },
             body: JSON.stringify(user),
         })
+    console.log(res.user, res.json.user  );
 
     return res;
   }
@@ -29,8 +30,9 @@ export default function Home() {
         const user = await loginUser(email, password)
         console.log(user)
         if(user.status == 201){
-          Router.push('/dashboard');  
-        }
+         // Router.push('/dashboard');  
+          console.log('Login Successful')
+         }
         
         //If successful, show successful, if not show error
         //re route to login page

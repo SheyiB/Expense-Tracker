@@ -19,6 +19,8 @@ export const protect = async() => {
 
 		req.user = currentUser;
 
+		next();
+
 
 	}catch(e){
 
