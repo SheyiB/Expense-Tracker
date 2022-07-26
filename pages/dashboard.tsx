@@ -26,7 +26,7 @@ export default function dashboard ({data, buys, id}) {
     }
 
     const fetchPurchases = async(id) => {
-        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
+        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
         const data = await purch.json()
 
         return data
@@ -35,7 +35,7 @@ export default function dashboard ({data, buys, id}) {
 
     const upateTable= async(id) => {
        refreshData()
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
        const data = await purch.json()
 
        setPurch(data)
@@ -72,7 +72,7 @@ export async function getServerSideProps(ctx) {
     console.log(id);
 
     const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`)
-    const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
+    const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
 
 
     const buys = await purch.json()

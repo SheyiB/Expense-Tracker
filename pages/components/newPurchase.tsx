@@ -12,7 +12,7 @@ const NewPurchase = ({user, addPurchase, refreshData}) =>{
         e.preventDefault()
 
         addPurchase(item, category, amount, date, user)
-        refreshData()
+        refreshData(user)
 
 
         setItem('')
