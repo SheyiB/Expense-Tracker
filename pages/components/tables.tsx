@@ -17,7 +17,7 @@ const Tables = ({data, userid}) =>{
     
     const upateTable= async() => {
        
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
        const data = await purch.json()
 
        setpurchase(data)

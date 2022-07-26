@@ -9,8 +9,7 @@ import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
 
 
-
-export default function dashboard ({data, buys}) {
+export default function dashboard ({data, buys, id}) {
 
     
     
@@ -18,25 +17,25 @@ export default function dashboard ({data, buys}) {
 
     const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
 
-    const router = useRouter();
-
+    console.log(buys)
     
-
+    const router = useRouter();
+    
     const refreshData = () => {
         router.replace(router.asPath);
     }
 
     const fetchPurchases = async(id) => {
-        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
         const data = await purch.json()
 
         return data
     }
 
 
-    const upateTable= async() => {
+    const upateTable= async(id) => {
        refreshData()
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
        const data = await purch.json()
 
        setPurch(data)
@@ -48,7 +47,7 @@ export default function dashboard ({data, buys}) {
         <>
         <h1> User Dashboard</h1>
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
-        <Tables data={purch} userid='62a9018b3c07aa27a7b8959e'/>
+        <Tables data={purch} userid={id}/>
         
         <div style={styling}> 
         <Graph  buys={buys}/>
@@ -63,15 +62,24 @@ export default function dashboard ({data, buys}) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
     // Fetch data from external API
-    const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/62a9018b3c07aa27a7b8959e`)
-    const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=62a9018b3c07aa27a7b8959e`)
+
+    
+
+    const id = ctx.query.id;
+
+    console.log(id);
+
+    const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`)
+    const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?userid=${id}`)
+
+
     const buys = await purch.json()
     const data = await res.json()
-
+    console.log(buys)
 
     // Pass data to the page via props
-    return { props: { data, buys } }
+    return { props: { data, buys , id} }
   }
 
