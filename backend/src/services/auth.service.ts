@@ -25,7 +25,7 @@ export class AuthService{
                 
                 const user = await User.findOne({email: email}).select('+password');
 
-                if (!user) reject('Invalid Inforamtion Supplied!');
+                if (!user) reject('FALSE-INFO!');
 
  				const isMatch =  await user.matchPassword(password);
  				          

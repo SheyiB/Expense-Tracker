@@ -19,19 +19,25 @@ export default function Home() {
                 'Content-type' : 'application/json',
             },
             body: JSON.stringify(user),
-        })
-    console.log(res.user, res.json.user  );
+        }).then(response => response.json())
 
     return res;
   }
 
   const onSubmit = async(e) => {
         e.preventDefault()
-        const user = await loginUser(email, password)
-        console.log(user)
-        if(user.status == 201){
-         // Router.push('/dashboard');  
+        const res = await loginUser(email, password)
+        //console.log(res)
+        if(res._id){
           console.log('Login Successful')
+          Router.push({
+            pathname: '/dashboard',
+            query: { id : res._id}
+          });  
+          
+         }
+         else{
+          console.log('Login Unsuccessful')
          }
         
         //If successful, show successful, if not show error

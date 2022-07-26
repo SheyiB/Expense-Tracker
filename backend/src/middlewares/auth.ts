@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import {User} from "../models/user";
+import {Request, Response} from "express";
 
-export const protect = async() => {
+export const protect = async(req: Request, res: Response, next) => {
 
 	const token = req.header('x-auth-token');
 

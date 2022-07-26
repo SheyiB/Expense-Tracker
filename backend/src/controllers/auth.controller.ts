@@ -19,6 +19,12 @@ export const login = async (req: Request, res: Response) =>{
         res.header('x-auth-token', token);
         return res.status(201).json(user);
     }  catch(e){
-        return res.status(500).json(e.message)
+        if(e == 'FALSE-INFO!'){
+            res.status(404).json('Invalid Information Supplied!')
+        }
+        else{
+            return res.status(500).json(e)    
+        }
+        
     }
 }
