@@ -11,7 +11,7 @@ import {useRouter} from 'next/router';
 
 export default function dashboard ({data, buys, id}) {
 
-    
+        
     
     const [purch, setPurch] = useState(buys)
 
