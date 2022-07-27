@@ -1,0 +1,29 @@
+.main{
+	background: skyblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	height: 100vh;
+	padding: 100px  50px;
+	box-sizing: border-box;
+	}
+.head{
+	display: flex;
+	justify-content: space-between;
+	width: 30%;
+}	
+.data{
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+	height: 70%;
+}
+.tables{
+
+}
+.diagrams{
+	display: flex;
+	flex-direction: column;
+
+}

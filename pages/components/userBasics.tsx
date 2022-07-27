@@ -19,8 +19,7 @@ const UserBasic = (props)=> {
         </div> */}
 
         <div>
-            <h2>Cash at Hand {props.atHand}</h2>
-            <h2>Cash in Bank {props.inBank}</h2>
+            <h1> Profile Picture</h1>
         </div>
         </>
     )

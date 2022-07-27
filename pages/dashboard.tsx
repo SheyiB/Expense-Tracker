@@ -4,14 +4,15 @@ import PChart from './components/pieChart'
 import Tables from './components/tables'
 import UserBasic from './components/userBasics'
 import Image from 'next/image'
-import { useState, useEffect} from 'react'
+import { useState, useEffect} from 'react'  
 import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
+import styles from '../styles/Dashboard.module.css'
 
 
 export default function dashboard ({data, buys, id}) {
 
-        
+    
     
     const [purch, setPurch] = useState(buys)
 
@@ -39,26 +40,47 @@ export default function dashboard ({data, buys, id}) {
        const data = await purch.json()
 
        setPurch(data)
+        refreshData()
     }
 
-    const styling = {height: '400px' , width: '600px'}
+    const styling = {height: '300px' , width: '400px'}
 
     return (
-        <>
+        <div className={styles.main}>
+
         <h1> User Dashboard</h1>
+
+        <div className={styles.head}>
+
         <UserBasic  username = {person.username} monthlySpend = {person.monthlySpend}  atHand = {person.atHand} inBank = {person.inBank}/>
+        
+        
+        
+        </div>
+
+        <div className={styles.data}>
+
+        <div className={styles.tables}>
         <Tables data={purch} userid={id}/>
+        </div>
+
         
-        <div style={styling}> 
-        <Graph  buys={buys}/>
+        <div className={styles.diagrams}> 
+
+        <div style={styling} className={styles.graph}> 
+        <Graph  buys={purch} userid={id}/>
+        </div>
+
+        <div style={styling} className={styles.pie}>
+        <PChart data={purch}/>
+        </div> 
+
         </div>
         
-        <div style={styling}>
-        <PChart data={buys}/>
+    
         </div>
-         
         
-        </>
+        </div>
     )
 }
 

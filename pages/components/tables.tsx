@@ -2,16 +2,17 @@ import Table from './table';
 import axios from 'axios';
 import {useState} from 'react';
 import NewPurchase from './newPurchase'
-//import {useRouter} from 'next/router';
+import {useRouter} from 'next/router';
 
 const Tables = ({data, userid}) =>{
     const  [ purchase, setpurchase] = useState(data)
 
-  //   const router = useRouter();
+     const router = useRouter();
 
-  //  const refreshData = () => {
-    //    router.replace(router.asPath);
-  //  }
+    const refreshData = () => {
+        router.replace(router.asPath);
+        console.log('Page Refreshed')
+    }
 
     const [addNew, setAddNew] = useState(false)
     
@@ -23,6 +24,7 @@ const Tables = ({data, userid}) =>{
        setpurchase(data)
         // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
         console.log(purchase)
+        refreshData()
     }
 
     const add = ()=>{
@@ -46,6 +48,7 @@ const Tables = ({data, userid}) =>{
         })
 
         setAddNew(false)
+        refreshData()
 
     }
 
@@ -53,6 +56,7 @@ const Tables = ({data, userid}) =>{
         await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/${purcid}`,{method: 'DELETE'})
         
         upateTable(userid)
+        refreshData()
     }
     return(
         <>
