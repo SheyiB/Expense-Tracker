@@ -72,6 +72,7 @@ export default function dashboard ({data, buys, id}) {
         </div>
 
         <div style={styling} className={styles.pie}>
+        
         <PChart data={purch}/>
         </div> 
 
