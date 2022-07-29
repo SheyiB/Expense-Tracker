@@ -2,11 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Login.module.css'
 import Link from 'next/link';
-import Router from "next/router"
-import {useState} from "react" 
+import Router from "next/router";
+import {useState} from "react" ;
+
 
 export default function Home() {
 
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 

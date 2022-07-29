@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useState} from 'react';
 import NewPurchase from './newPurchase'
 import {useRouter} from 'next/router';
+import { setGlobalState, useGlobalState} from '../index';
 
 const Tables = ({data, userid}) =>{
     const  [ purchase, setpurchase] = useState(data)
@@ -36,6 +37,18 @@ const Tables = ({data, userid}) =>{
         }
         
     }
+
+    const updateGraphData = async(id) => {
+
+        const response = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
+        const data = await response.json()
+        
+       const newD = sortData(data, graphdata, data)
+
+       setGlobalState("gdata", newD)
+       
+       //setfinalData(newD);
+    }
     const addPurchase = async(item, category, amount, date, user) => {
         const purchase = {item: item, category: category, price:amount, date:date,  user:user}
 
@@ -48,6 +61,7 @@ const Tables = ({data, userid}) =>{
         })
 
         setAddNew(false)
+        updateGraphData(userid)
         refreshData()
 
     }
