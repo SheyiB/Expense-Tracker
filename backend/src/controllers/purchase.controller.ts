@@ -22,6 +22,16 @@ export const getAllPurchases = async (req: Request, res: Response, next) =>{
     }
 }
 
+
+export const getUserPurchases = async (req: Request, res: Response, next) =>{
+    try{
+        const purchase = await Purchase.getUserPurchase(req.params.id);
+        return res.status(200).json(purchase)
+    }  catch(e){
+        return res.status(500).json(e)
+    }
+}
+
 export const getPurchase = async (req: Request, res: Response, next) =>{
     try{
         const purchase = await Purchase.getPurchase(req.params.id);

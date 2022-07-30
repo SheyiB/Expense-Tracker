@@ -14,6 +14,19 @@ export class PurchaseService {
         })
     }
 
+    getUserPurchase (userid: string){
+        return new Promise(async(resolve, reject) => {
+            try{
+                const purchases = await Purchase.find({user: userid});
+                return resolve(purchases)
+            }
+            catch(e){
+                e.source = 'Get User Purchase Service';
+                return reject(e)
+            }
+        })
+    }
+
     getAllPurchase (query? : any){
         return new Promise(async(resolve, reject) => {
             try{
