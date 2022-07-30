@@ -4,7 +4,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import { Bar, Line, Scatter, Bubble} from "react-chartjs-2";
 
 
-const Graph = ({finalData}) => {
+const Graph = ({graphData}) => {
 
 
     const options = {
@@ -34,7 +34,7 @@ const Graph = ({finalData}) => {
         <>
         <h1> Graph of Spendings </h1>
        
-         <Line data={finalData} width={100} height={40} options={options} />   
+         <Line data={graphData} width={100} height={40} options={options} />   
        
         
         </>

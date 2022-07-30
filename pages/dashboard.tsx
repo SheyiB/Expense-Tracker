@@ -8,6 +8,7 @@ import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
 import styles from '../styles/Dashboard.module.css'
+import {generateGraphData, generatePieChartData} from './components/dataGen'
 
 
 export default function dashboard ({data, buys, id}) {
@@ -33,41 +34,8 @@ export default function dashboard ({data, buys, id}) {
 
     const styling = {height: '300px' , width: '400px'}
 
-    const generateGraphData = (buys) => {
-
-        let gdata = [0,0,0,0,0,0,0,0,0,0,0,0]
-
-        const graphdata = {
-            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            datasets: [
-                {
-                data: gdata,
-                },
-            ],
-        };    
-    
-        for (let i in buys){
-        const currendata = []
-        const pos = Number(i) + 1
-        const purchaseid = buys[i]._id
-        
-        const month = Number(buys[i].date.slice(5,7))
-        const currentyear = new Date()
-
-        if (Number(buys[i].date.slice(0,4)) == currentyear.getFullYear() ){
-            for (let x in graphdata.labels){
-                if (month == (Number(x)+1)){
-                    gdata[x] = gdata[x] + buys[i].price
-                }
-            }
-        }
-    }
-
-    return graphdata;
-    
-    }
-
-    const finalData = generateGraphData(buys)
+    const graphData = generateGraphData(buys)
+    const pieChartData = generatePieChartData(buys)
     
 
     return (
@@ -93,12 +61,12 @@ export default function dashboard ({data, buys, id}) {
         <div className={styles.diagrams}> 
 
         <div style={styling} className={styles.graph}> 
-        <Graph  finalData={finalData}/>
+        <Graph  graphData={graphData}/>
         </div>
 
         <div style={styling} className={styles.pie}>
         
-        <PChart data={purch}/>
+        <PChart pieData={pieChartData}/>
         </div> 
 
         </div>
