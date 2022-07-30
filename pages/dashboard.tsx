@@ -9,9 +9,16 @@ import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
 import styles from '../styles/Dashboard.module.css'
 import {generateGraphData, generatePieChartData} from './components/dataGen'
+import { setGlobalState, useGlobalState} from './index'
+
+
 
 export default function dashboard ({data, buys, id}) {
-    
+
+    const [theId] = useGlobalState("id")
+
+    console.log('THE ID IS:',theId)
+
     const [purch, setPurch] = useState(buys)
 
     const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
@@ -71,7 +78,7 @@ export default function dashboard ({data, buys, id}) {
         <div style={styling} className={styles.graph}> 
         <Graph  graphData={graph}/>
         </div>
-
+ 
         <div style={styling} className={styles.pie}>
         
         <PChart pieData={pie}/>
@@ -89,6 +96,7 @@ export default function dashboard ({data, buys, id}) {
 
 export async function getServerSideProps(ctx) {
     // Fetch data from external API
+
 
     const id = ctx.query.id;
 

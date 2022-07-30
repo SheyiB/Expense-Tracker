@@ -4,6 +4,9 @@ import styles from '../styles/Login.module.css'
 import Link from 'next/link';
 import Router from "next/router";
 import {useState} from "react" ;
+import { createGlobalState } from 'react-hooks-global-state'
+
+const { setGlobalState, useGlobalState} = createGlobalState({ id: null});
 
 
 export default function Home() {
@@ -32,7 +35,8 @@ export default function Home() {
         //console.log(res)
         if(res._id){
           console.log('Login Successful')
-          Router.push({
+           setGlobalState("id", res._id)
+            Router.push({
             pathname: '/dashboard',
             query: { id : res._id}
           });  
@@ -77,8 +81,6 @@ return (
     </div>
   )
 
-
-
 }
 
-  
+export { useGlobalState, setGlobalState  };
