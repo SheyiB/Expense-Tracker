@@ -3,16 +3,10 @@ import axios from 'axios';
 import {useState} from 'react';
 import NewPurchase from './newPurchase'
 import {useRouter} from 'next/router';
+import {generateGraphData, generatePieChartData} from './dataGen'
 
-const Tables = ({data, userid}) =>{
+const Tables = ({data, userid, updateCharts}) =>{
     const  [ purchase, setpurchase] = useState(data)
-
-     const router = useRouter();
-
-    const refreshData = () => {
-        router.replace(router.asPath);
-        console.log('Page Refreshed')
-    }
 
     const [addNew, setAddNew] = useState(false)
     
@@ -22,9 +16,6 @@ const Tables = ({data, userid}) =>{
        const data = await purch.json()
 
        setpurchase(data)
-        // setrecentSpendings(recentSpendings => [...recentSpendings, snewData])
-        console.log(purchase)
-        refreshData()
     }
 
     const add = ()=>{
@@ -37,9 +28,6 @@ const Tables = ({data, userid}) =>{
         
     }
 
-    const updateGraphData = () => {
-        
-    }
     const addPurchase = async(item, category, amount, date, user) => {
         const purchase = {item: item, category: category, price:amount, date:date,  user:user}
 
@@ -52,15 +40,13 @@ const Tables = ({data, userid}) =>{
         })
 
         setAddNew(false)
-        refreshData()
-
+        updateCharts(user)
     }
 
     const onDelete = async(purcid, userid)=>{
-        await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/${purcid}`,{method: 'DELETE'})
-        
+        await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/${purcid}`,{method: 'DELETE'}) 
         upateTable(userid)
-        refreshData()
+        updateCharts(userid)
     }
     return(
         <>
