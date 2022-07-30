@@ -1,12 +1,12 @@
 import {Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler} from "chart.js";
-
-import { useState, useEffect} from 'react' 
-
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 import { Bar, Line, Scatter, Bubble} from "react-chartjs-2";
 
+
 const Graph = ({finalData}) => {
+
+
     const options = {
         responsive: true,
         pulugins: {
