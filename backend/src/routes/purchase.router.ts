@@ -5,7 +5,7 @@ import {protect} from "../middlewares/auth";
 
 export const purchaseRouter = express.Router();
 
-purchaseRouter.route('/', protect).get(getAllPurchases).post(createPurchase);
-purchaseRouter.route('/:id', protect).get(getPurchase).put(updatePurchase).delete(deletePurchase);
-purchaseRouter.route('/user/:id', protect).get(getUserPurchases);
+purchaseRouter.route('/').get(protect,getAllPurchases).post(protect,createPurchase);
+purchaseRouter.route('/:id').get(protect,getPurchase).put(protect,updatePurchase).delete(protect,deletePurchase);
+purchaseRouter.route('/user/:id').get(protect,getUserPurchases);
 

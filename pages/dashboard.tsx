@@ -99,6 +99,9 @@ export async function getServerSideProps(ctx) {
 
 
     const id = ctx.query.id;
+    const headers = ctx;
+
+    console.log('headers are',headers.req.user)
 
     const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`)
     const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
