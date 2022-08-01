@@ -20,7 +20,6 @@ export const protect = async(req: Request, res: Response, next) => {
 
 		req.user = currentUser;
 
-		console.log('We here')
 
 		next();
 
