@@ -17,7 +17,7 @@ export const login = async (req: Request, res: Response) =>{
         const {user, token } = await auth.login(req.body);
         
         res.header('x-auth-token', token);
-        return res.status(201).json(user);
+        return res.status(201).json({user, token});
     }  catch(e){
         if(e == 'FALSE-INFO!'){
             res.status(404).json('Invalid Information Supplied!')

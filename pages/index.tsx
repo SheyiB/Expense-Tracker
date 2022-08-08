@@ -6,7 +6,7 @@ import Router from "next/router";
 import {useState} from "react" ;
 import { createGlobalState } from 'react-hooks-global-state'
 
-const { setGlobalState, useGlobalState} = createGlobalState({ id: null});
+const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null});
 
 
 export default function Home() {
@@ -22,24 +22,29 @@ export default function Home() {
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json',
+                'x-auth-token': ''
             },
             body: JSON.stringify(user),
-        }).then(response => response.json())
+        })
 
+    console.log(res)
     return res;
   }
 
   const onSubmit = async(e) => {
         e.preventDefault()
         const res = await loginUser(email, password)
-        //console.log(res)
-        if(res._id){
+        const data = await res.json()
+
+        //console.log(data)
+        if(res.status == 201 ){
           console.log('Login Successful')
-           setGlobalState("id", res._id)
-            Router.push({
-            pathname: '/dashboard',
-            query: { id : res._id}
-          });  
+           setGlobalState("id", data.user._id)
+           setGlobalState("token", data.token)
+            //Router.push({
+            //pathname: '/dashboard',
+            //query: { id : data._id}
+          //});  
           
          }
          else{
