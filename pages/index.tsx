@@ -2,18 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Login.module.css'
 import Link from 'next/link';
+import {useQuery, useQueryClient} from '@tanstack/react-query'
 import Router from "next/router";
 import {useState} from "react" ;
 import { createGlobalState } from 'react-hooks-global-state'
 
-const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null});
+const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null, loggedInStatus: false});
 
 
 export default function Home() {
+//Token
+//Logged In Status
+//UserId
 
-  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [token, setToken] = useState('')
 
   const loginUser = async(email, password) => {
     const user = {email, password}
@@ -41,21 +45,24 @@ export default function Home() {
           console.log('Login Successful')
            setGlobalState("id", data.user._id)
            setGlobalState("token", data.token)
-            //Router.push({
-            //pathname: '/dashboard',
+           setGlobalState("loggedInStatus", true)
+
+           setToken(data.token)
+            Router.push({
+            pathname: '/dashboard',
             //query: { id : data._id}
-          //});  
-          
+          });
+
          }
          else{
           console.log('Login Unsuccessful')
          }
-        
+
         //If successful, show successful, if not show error
         //re route to login page
         //
   }
-  
+
 return (
     <div className={styles.container}>
       <Head>

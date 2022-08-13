@@ -1,53 +1,62 @@
-import Graph from './components/graph'
-import NewPurchase from './components/newPurchase'
-import PChart from './components/pieChart'
-import Tables from './components/tables'
-import UserBasic from './components/userBasics'
+import Graph from '../components/graph'
+import NewPurchase from '../components/newPurchase'
+import PChart from '../components/pieChart'
+import Tables from '../components/tables'
+import UserBasic from '../components/userBasics'
 import Image from 'next/image'
-import { useState, useEffect} from 'react'  
+import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
 import Router from "next/router"
 import styles from '../styles/Dashboard.module.css'
-import {generateGraphData, generatePieChartData} from './components/dataGen'
-//import { setGlobalState, useGlobalState} from './index'
+import {generateGraphData, generatePieChartData} from '../components/dataGen'
+import { setGlobalState, useGlobalState} from './index'
 
-    
+
 
 export default function dashboard ({data, buys, id}) {
-    
+
   const checkLoggedInStatus = (data,buys,id) => {
          useEffect(() => {
-             if(data == undefined | buys == undefined | id == undefined){
-           Router.push('/');  
-         }    
+             if(data == undefined || buys == undefined || id == undefined){
+           Router.push('/');
+         }
          })
-        
+
     }
 
-    checkLoggedInStatus(data, buys, id)
-         
-  //  const [theId] = useGlobalState("id")
-  //  console.log('THE ID IS:',theId)
+    //checkLoggedInStatus(data, buys, id)
+
+    const [theId] = useGlobalState("id")
+    const [token] = useGlobalState("token")
+    const [loggedInStatus] = useGlobalState("loggedInStatus")
+    console.log('THE ID IS:',theId)
+    console.log('THE TOKEN IS:',theId)
+    console.log('THE LOGGED IN STATUS IS:', loggedInStatus)
+
+
+    //const user = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${theId}`).then(response => response.json())
+    //const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${theId}`).then(response => response.json())
 
     if(buys){
-        const [purch, setPurch] = useState(buys)
-        const graphData = generateGraphData(buys)
-        const pieChartData = generatePieChartData(buys)
-        const [ graph, setGraph ] = useState(graphData)
-        const [ pie, setPie ] = useState(pieChartData)
+    const [purch, setPurch] = useState(buys)
+    const graphData = generateGraphData(buys)
+    const pieChartData = generatePieChartData(buys)
+    const [ graph, setGraph ] = useState(graphData)
+    const [ pie, setPie ] = useState(pieChartData)
     }
 
     if(data){
-        const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}    
+    const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
     }
-    
+
+
     const fetchPurchases = async(id) => {
         const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
         const data = await purch.json()
         return data
     }
-    
+
     const upateTable= async(id) => {
        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
        const data = await purch.json()
@@ -78,40 +87,43 @@ export default function dashboard ({data, buys, id}) {
         <div className={styles.tables}>
         <Tables data={purch} userid={id} updateCharts={()=>updateCharts(id)}/>
         </div>
-        <div className={styles.diagrams}> 
-        <div style={styling} className={styles.graph}> 
+        <div className={styles.diagrams}>
+        <div style={styling} className={styles.graph}>
         <Graph  graphData={graph}/>
         </div>
         <div style={styling} className={styles.pie}>
         <PChart pieData={pie}/>
-        </div> 
+        </div>
         </div>
         </div>
         </div>
 
-        : <h1>  </h1>
+        : <h1>   </h1>
     }
     </>
-    
+
     )
-}
+ }
 
 // export async function getServerSideProps(ctx) {
-//     // Fetch data from external API
+// // Fetch data from external API
+
+// console.log('We live')
+
+// const id = 'null'
+
+// //     const id = ctx.query.id;
+// //     const headers = ctx;
+
+// //     console.log('headers are',headers.req.user)
+
+// //     const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`)
+// //     const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
 
 
-//     const id = ctx.query.id;
-//     const headers = ctx;
-
-//     console.log('headers are',headers.req.user)
-
-//     const res = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`)
-//     const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
-
-
-//     //const buys = await purch.json()
-//     //const data = await res.json()
+// //     //const buys = await purch.json()
+// //     //const data = await res.json()
 
 //     return { props: {  id} }
-//   }
+//    }
 

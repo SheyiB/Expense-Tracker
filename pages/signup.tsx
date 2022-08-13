@@ -35,9 +35,9 @@ export default function Home() {
         const user = await createUser(firstname, lastname, email, phone, date, password)
         console.log(user)
         if(user.status == 201){
-          Router.push('/');  
+          Router.push('/');
         }
-        
+
         //If successful, show successful, if not show error
         //re route to login page
         //
@@ -60,15 +60,15 @@ export default function Home() {
         <h1>Sign Up</h1>
 
         <form className={styles.formSignup} onSubmit={onSubmit}>
-            
+
             <input type="text" required onChange={(e) => setFirstname(e.target.value)} placeholder="First Name"/>
-            <input type="text" required onChange={(e) => setLastname(e.target.value)} placeholder="Last Name"/>    
+            <input type="text" required onChange={(e) => setLastname(e.target.value)} placeholder="Last Name"/>
             <input type="email" required onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
-            <input type="number" required onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number"/>
+            <input type="number" required onChange={(e) => setPhone(Number(e.target.value))} placeholder="Phone Number"/>
             <input type="date" required onChange={(e) => setDate(e.target.value)} placeholder="Date of Birth"/>
             <input type="password" required onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
             <input type="password" required onChange={(e) => setConfirmPassword(e.target.value)} placeholder="confirm password"/>
-            
+
             <button type="submit"> Sign Up</button>
 
             <p>Existing User?<Link href="/"><a>Login</a></Link></p>
