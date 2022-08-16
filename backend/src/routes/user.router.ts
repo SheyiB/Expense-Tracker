@@ -8,7 +8,7 @@ export const userRouter = express.Router();
 
 userRouter.use('/purchase', purchaseRouter)
 
-userRouter.route('/', protect).get(getAllUsers).post(createUser);
-userRouter.route('/:id', protect).get(getUser).put(updateUser).delete(deleteUser);
+userRouter.route('/').get(protect, getAllUsers).post(createUser);
+userRouter.route('/:id').get(protect,getUser).put(updateUser).delete(deleteUser);
 
 
