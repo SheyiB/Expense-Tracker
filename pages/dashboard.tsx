@@ -12,7 +12,7 @@ import { setGlobalState, useGlobalState} from './index'
 
 
 
-export default function dashboard ({data, buys, id}) {
+const dashboard = async ({data, buys, id}) => {
 
   const checkLoggedInStatus = (data,buys,id) => {
          useEffect(() => {
@@ -32,8 +32,20 @@ export default function dashboard ({data, buys, id}) {
     console.log('THE TOKEN IS:',theId)
     console.log('THE LOGGED IN STATUS IS:', loggedInStatus)
 
+    const fetchUser = async(id) =>{
+        const user = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${theId}`, {
+            method: 'GET',
+            headers: {
+                'Content-type' : 'application/json',
+                'x-auth-token': token
+            }
+        }).then(response => response.json())
 
-    //const user = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${theId}`).then(response => response.json())
+        return user
+    }
+
+    const currentUser = await fetchUser(theId)
+    console.log(currentUser)
     //const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${theId}`).then(response => response.json())
 
     if(buys){
@@ -102,6 +114,8 @@ export default function dashboard ({data, buys, id}) {
 
     )
  }
+
+ export default Tables
 
 // export async function getServerSideProps(ctx) {
 // // Fetch data from external API
