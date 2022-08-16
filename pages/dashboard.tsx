@@ -1,9 +1,7 @@
 import Graph from '../components/graph'
-import NewPurchase from '../components/newPurchase'
 import PChart from '../components/pieChart'
 import Tables from '../components/tables'
 import UserBasic from '../components/userBasics'
-import Image from 'next/image'
 import { useState, useEffect} from 'react'
 import type {GetStaticProps} from "next";
 import {useRouter} from 'next/router';
