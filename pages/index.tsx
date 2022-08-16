@@ -7,7 +7,7 @@ import Router from "next/router";
 import {useState} from "react" ;
 import { createGlobalState } from 'react-hooks-global-state'
 
-const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null, loggedInStatus: false});
+const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null, loggedInStatus: false, user: null, purchase: null});
 
 
 export default function Home() {
@@ -30,7 +30,6 @@ export default function Home() {
             },
             body: JSON.stringify(user),
         })
-
     console.log(res)
     return res;
   }
@@ -43,9 +42,35 @@ export default function Home() {
         //console.log(data)
         if(res.status == 201 ){
           console.log('Login Successful')
+
+          const fetchData = async(id, data) =>{
+            const user = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type' : 'application/json',
+                    'x-auth-token': data.token
+                }
+            }).then(response => response.json())
+
+            const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type' : 'application/json',
+                    'x-auth-token': data.token
+                }
+            }).then(response => response.json())
+
+
+            return {user, purchase}
+        }
+
+        const {user, purchase} = await fetchData(data.user._id, data)
+        console.log(user.email)
            setGlobalState("id", data.user._id)
            setGlobalState("token", data.token)
            setGlobalState("loggedInStatus", true)
+           setGlobalState("user", user)
+           setGlobalState("purchase", purchase)
 
            setToken(data.token)
             Router.push({

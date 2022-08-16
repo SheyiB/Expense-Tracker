@@ -12,7 +12,7 @@ import { setGlobalState, useGlobalState} from './index'
 
 
 
-const dashboard = async ({data, buys, id}) => {
+export default function dashboard ({data, buys, id}) {
 
   const checkLoggedInStatus = (data,buys,id) => {
          useEffect(() => {
@@ -22,17 +22,19 @@ const dashboard = async ({data, buys, id}) => {
          })
 
     }
-
     //checkLoggedInStatus(data, buys, id)
+    let currentUser, userPurchase
 
     const [theId] = useGlobalState("id")
     const [token] = useGlobalState("token")
     const [loggedInStatus] = useGlobalState("loggedInStatus")
+    const [user] = useGlobalState("user")
+    const [purchase] = useGlobalState("purchase")
     console.log('THE ID IS:',theId)
     console.log('THE TOKEN IS:',theId)
     console.log('THE LOGGED IN STATUS IS:', loggedInStatus)
 
-    const fetchUser = async(id) =>{
+    const fetchUser = async(id, currentUser, userPurchase) =>{
         const user = await fetch(`http://localhost:7000/api/v2/spendingApp/users/${theId}`, {
             method: 'GET',
             headers: {
@@ -41,24 +43,42 @@ const dashboard = async ({data, buys, id}) => {
             }
         }).then(response => response.json())
 
+        const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${theId}`, {
+            method: 'GET',
+            headers: {
+                'Content-type' : 'application/json',
+                'x-auth-token': token
+            }
+        }).then(response => response.json())
+
+        currentUser = user
+        userPurchase = purchase
+
+
+        console.log(`Current User is : ${currentUser.email} , user has ${purchase.length} purchases` )
         return user
+
     }
 
-    const currentUser = await fetchUser(theId)
-    console.log(currentUser)
-    //const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${theId}`).then(response => response.json())
 
-    if(buys){
-    const [purch, setPurch] = useState(buys)
-    const graphData = generateGraphData(buys)
-    const pieChartData = generatePieChartData(buys)
+    useEffect(()=>{
+
+    },[])
+
+    //
+
+//    if(userPurchase){
+    const [purch, setPurch] = useState(purchase)
+    const graphData = generateGraphData(purchase)
+    const pieChartData = generatePieChartData(purchase)
     const [ graph, setGraph ] = useState(graphData)
     const [ pie, setPie ] = useState(pieChartData)
-    }
+ //   }
 
-    if(data){
-    const person = {username : data.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: data._id}
-    }
+//    let person
+//    if(currentUser){
+    const person = {username : user.firstname, monthlySpend: 20000, atHand: 1000, inBank: 50000, userid: user._id}
+//    }
 
 
     const fetchPurchases = async(id) => {
@@ -85,7 +105,7 @@ const dashboard = async ({data, buys, id}) => {
     return (
         <>
     {
-        data ?
+        user ?
 
 
         <div className={styles.main}>
@@ -108,14 +128,12 @@ const dashboard = async ({data, buys, id}) => {
         </div>
         </div>
 
-        : <h1>   </h1>
+        : <h1> No logged In User {theId}</h1>
     }
     </>
 
     )
  }
-
- export default Tables
 
 // export async function getServerSideProps(ctx) {
 // // Fetch data from external API
