@@ -89,7 +89,8 @@ export default function dashboard ({data, buys, id}) {
 
 
     const fetchPurchases = async(id, token) => {
-        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`, {
+
+        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/user/${id}`, {
             headers: {
                 'Content-type' : 'application/json',
                 'x-auth-token': token
@@ -132,7 +133,7 @@ export default function dashboard ({data, buys, id}) {
         </div>
         <div className={styles.data}>
         <div className={styles.tables}>
-        <Tables data={purch} userid={theId} updateCharts={()=>updateCharts(id,token)} token={token}/>
+        <Tables data={purch} userid={theId} updateCharts={updateCharts} token={token}/>
         </div>
         <div className={styles.diagrams}>
         <div style={styling} className={styles.graph}>

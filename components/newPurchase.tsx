@@ -12,7 +12,7 @@ const NewPurchase = ({user, addPurchase, refreshData, token}) =>{
         e.preventDefault()
 
         addPurchase(item, category, amount, date, user, token)
-        refreshData(user)
+        refreshData(user, token)
 
 
         setItem('')
@@ -26,7 +26,7 @@ const NewPurchase = ({user, addPurchase, refreshData, token}) =>{
 
     return (
         <>
-        <form onSubmit={()=>onSubmit(token)}>
+        <form onSubmit={(e)=>onSubmit(e, token)}>
             <input type="text" className="item" required value={item} onChange={(e) => setItem(e.target.value)} placeholder="Item"/><br/>
             <input type="text" className="category" required value={category}  onChange={(e) => setCategory(e.target.value)} placeholder="Category"/><br/>
             <input type="number" className="amount" required value={amount}  onChange={(e) => setAmount(Number(e.target.value))} placeholder="Amount"/><br/>

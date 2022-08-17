@@ -10,14 +10,29 @@ const Tables = ({data, userid, updateCharts, token}) =>{
     const [addNew, setAddNew] = useState(false)
 
     const upateTable= async(userid, token) => {
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${userid}`, {
+        console.log(token)
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/user/${userid}`, {
         headers: {
             'Content-type' : 'application/json',
             'x-auth-token': token
         }
        })
+
+
+
+       const purchase = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${userid}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type' : 'application/json',
+                    'x-auth-token': token
+                }
+            }).then(response => response.json())
+
        const data = await purch.json()
-       setpurchase(data)
+
+       console.log(purchase)
+       console.log(data)
+       setpurchase(purchase)
     }
 
     const add = ()=>{
@@ -31,7 +46,7 @@ const Tables = ({data, userid, updateCharts, token}) =>{
 
     const addPurchase = async(item, category, amount, date, user, token) => {
         const purchase = {item: item, category: category, price:amount, date:date,  user:user}
-        const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${user}`,{
+        const res = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase/`,{
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json',
@@ -40,7 +55,7 @@ const Tables = ({data, userid, updateCharts, token}) =>{
             body: JSON.stringify(purchase),
         })
         setAddNew(false)
-        updateCharts(user)
+        updateCharts(user, token)
     }
 
     const onDelete = async(purcid, userid, token)=>{
@@ -48,6 +63,7 @@ const Tables = ({data, userid, updateCharts, token}) =>{
             'Content-type' : 'application/json',
             'x-auth-token': token
         }})
+        console.log(token, userid)
         upateTable(userid, token)
         updateCharts(userid, token)
     }
