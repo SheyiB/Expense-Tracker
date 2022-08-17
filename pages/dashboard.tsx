@@ -30,6 +30,13 @@ export default function dashboard ({data, buys, id}) {
     const [loggedInStatus] = useGlobalState("loggedInStatus")
     const [user] = useGlobalState("user")
     const [purchase] = useGlobalState("purchase")
+
+    const header = {
+        headers: {
+            'Content-type' : 'application/json',
+            'x-auth-token': token
+        }
+    }
     console.log('THE ID IS:',theId)
     console.log('THE TOKEN IS:',theId)
     console.log('THE LOGGED IN STATUS IS:', loggedInStatus)
@@ -81,22 +88,32 @@ export default function dashboard ({data, buys, id}) {
 //    }
 
 
-    const fetchPurchases = async(id) => {
-        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
+    const fetchPurchases = async(id, token) => {
+        const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`, {
+            headers: {
+                'Content-type' : 'application/json',
+                'x-auth-token': token
+            }
+        })
         const data = await purch.json()
         return data
     }
 
-    const upateTable= async(id) => {
-       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`)
+    const upateTable= async(id, token) => {
+       const purch = await fetch(`http://localhost:7000/api/v2/spendingApp/purchase?user=${id}`, {
+        headers: {
+            'Content-type' : 'application/json',
+            'x-auth-token': token
+        }
+       })
        const data = await purch.json()
        setPurch(data)
     }
 
     const styling = {height: '300px' , width: '400px'}
 
-    const updateCharts = async(id) => {
-        const data = await fetchPurchases(id)
+    const updateCharts = async(id, token) => {
+        const data = await fetchPurchases(id,token)
         const graphInfo = generateGraphData(data)
         const pieInfo = generatePieChartData(data)
         setGraph(graphInfo)
@@ -115,7 +132,7 @@ export default function dashboard ({data, buys, id}) {
         </div>
         <div className={styles.data}>
         <div className={styles.tables}>
-        <Tables data={purch} userid={id} updateCharts={()=>updateCharts(id)}/>
+        <Tables data={purch} userid={theId} updateCharts={()=>updateCharts(id,token)} token={token}/>
         </div>
         <div className={styles.diagrams}>
         <div style={styling} className={styles.graph}>

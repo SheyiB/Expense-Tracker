@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
 
-const NewPurchase = ({user, addPurchase, refreshData}) =>{
+const NewPurchase = ({user, addPurchase, refreshData, token}) =>{
 
     const [item, setItem] = useState('')
     const [category, setCategory] = useState('')
     const [amount, setAmount] = useState(0)
     const [date, setDate] = useState('')
 
-    const onSubmit = async(e) => {
+    const onSubmit = async(e, token) => {
         e.preventDefault()
 
-        addPurchase(item, category, amount, date, user)
+        addPurchase(item, category, amount, date, user, token)
         refreshData(user)
 
 
@@ -26,7 +26,7 @@ const NewPurchase = ({user, addPurchase, refreshData}) =>{
 
     return (
         <>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={()=>onSubmit(token)}>
             <input type="text" className="item" required value={item} onChange={(e) => setItem(e.target.value)} placeholder="Item"/><br/>
             <input type="text" className="category" required value={category}  onChange={(e) => setCategory(e.target.value)} placeholder="Category"/><br/>
             <input type="number" className="amount" required value={amount}  onChange={(e) => setAmount(Number(e.target.value))} placeholder="Amount"/><br/>
