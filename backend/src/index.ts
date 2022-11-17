@@ -13,7 +13,6 @@ import { authRouter } from './routes/auth.router';
 import {db} from './db';
 import morgan from "morgan";
 
-
 dotenv.config();
 db();
 /**
@@ -21,6 +20,7 @@ db();
  */
 
 if (!process.env.PORT){
+    console.log("Environmental Variables not found")
     process.exit(1);
 }
 
