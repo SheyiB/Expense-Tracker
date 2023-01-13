@@ -6,6 +6,7 @@ import {useQuery, useQueryClient} from '@tanstack/react-query'
 import Router from "next/router";
 import {useState} from "react" ;
 import { createGlobalState } from 'react-hooks-global-state'
+import Notification from '../components/notification'
 
 const { setGlobalState, useGlobalState} = createGlobalState({ id: null, token: null, loggedInStatus: false, user: null, purchase: null});
 
@@ -80,6 +81,7 @@ export default function Home() {
 
          }
          else{
+          <Notification message=""/>
           console.log('Login Unsuccessful')
          }
 
