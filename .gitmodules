@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/SheyiB/ExpenseAppBackend.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/SheyiB/ExpenseAppFrontEnd.git
